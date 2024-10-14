@@ -1,0 +1,75 @@
+/* Register.css */
+body {
+    background-color: #f4f4f4; /* Couleur de fond pour toute la page */
+    font-family: 'Arial', sans-serif; /* Police de la page */
+}
+
+#register {
+    max-width: 500px;
+    margin: 50px auto; /* Marge supérieure pour un espacement agréable */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white; /* Fond blanc pour le formulaire */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre douce autour du formulaire */
+    transition: box-shadow 0.3s ease; /* Transition pour l'ombre */
+}
+
+#register:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Ombre plus profonde au survol */
+}
+
+h2 {
+    text-align: center;
+    color: #333; /* Couleur du titre */
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold; /* Gras pour les labels */
+    color: #555; /* Couleur des labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease; /* Transition pour les bordures */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50; /* Bordure verte au focus */
+    outline: none; /* Enlever le contour par défaut */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold; /* Gras pour le texte du bouton */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition pour le bouton */
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049; /* Couleur au survol */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre au survol */
+}
