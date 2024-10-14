@@ -1,0 +1,65 @@
+.header {
+    text-align: center;
+    height: 35vw;
+    margin: 30px auto;
+    background: url('/agraas.avif') no-repeat center center; /* Centre l'image de fond */
+    background-size: cover; /* Remplit toute la zone */
+    position: relative;
+    border: 5px solid white; /* Ajoute une bordure blanche */
+    border-radius: 10px; /* Arrondir les coins de la bordure, optionnel */
+    overflow: hidden; 
+}
+
+/* Pseudo-élément pour la superposition semi-transparente */
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5); /* Couleur blanche avec 50% de transparence */
+    z-index: 1; /* Assurez-vous que l'overlay est au-dessus de l'image */
+}
+
+.header-contents {
+    position: relative; /* Changez de absolue à relative pour s'assurer que le contenu est au-dessus de l'overlay */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement */
+    gap: 1.5vw;
+    width: 100%; /* Assure que le contenu prend toute la largeur */
+    height: 100%; /* Assure que le contenu prend toute la hauteur */
+    z-index: 2; /* Assurez-vous que le contenu est au-dessus de l'overlay */
+}
+
+.header-contents h2 {
+    font-weight: 400;
+    color: black;
+    font-size:  50px;
+    color: rgb(15, 81, 15);
+    
+}
+
+.header-contents p {
+    color: rgb(39, 36, 36);
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.header-contents button {
+    background: transparent;
+    font-size: 20px;
+    color: rgb(33, 87, 33);
+    border: 1px solid rgb(33, 87, 33);
+    padding: 10px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.header-contents button:hover {
+    background-color: rgb(33, 87, 33);
+    color: white;
+}
