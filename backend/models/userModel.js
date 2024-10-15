@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     },
     imageProfil: {  
         type: String, 
-        default: ''   
+        default: '../../profil.jpg'   
     }
 }, { timestamps: true });
 

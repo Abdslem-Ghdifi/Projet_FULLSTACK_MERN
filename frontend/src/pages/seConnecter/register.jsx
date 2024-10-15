@@ -32,7 +32,7 @@ const Register = () => {
       email,
       motdepasse,
       adresse,
-      imageProfil: imageProfil ? imageProfil : '../../assets/profil.jpg',  // Image par défaut si aucune image n'est sélectionnée
+      imageProfil: imageProfil ? imageProfil : '',  // Image par défaut si aucune image n'est sélectionnée
     };
 
     try {

@@ -5,6 +5,7 @@ import Register from './pages/seConnecter/register';
 import SeConnecter from './pages/seConnecter/seConnecter';  
 import Home from '../src/pages/home/home'
 import UserAccueil from './pages/UserAcceuil/UserAcceuil';
+import ModifierProfil from'./components/ProfilUser/ModifierProfil'
 function App() {
   return (
     <Router>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<SeConnecter />} />
         <Route path='/userAcceuil' element={<UserAccueil />}></Route>
+        <Route path='/ModifierProfil' element={<ModifierProfil />}></Route>
       </Routes>
     </Router>
   );

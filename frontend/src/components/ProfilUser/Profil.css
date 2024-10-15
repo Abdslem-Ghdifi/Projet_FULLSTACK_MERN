@@ -1,0 +1,103 @@
+/* Styles du conteneur du profil */
+.profil-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Titre du profil */
+.profil-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1d7130;
+    margin-bottom: 20px;
+}
+
+/* Conteneur de l'image de profil */
+.profil-image-container {
+    margin-bottom: 20px;
+}
+
+.profil-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1d7130; /* Bordure verte autour de l'image */
+}
+
+/* Tableau des informations utilisateur */
+.profil-info-table {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px; /* Centre le tableau et ajoute un espace en bas */
+    border-collapse: collapse;
+}
+
+.profil-info-table td {
+    padding: 15px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.profil-info-table td:first-child {
+    font-weight: bold;
+    color: #1d7130;
+}
+
+.profil-info-table td:nth-child(2) {
+    color: #333;
+}
+
+/* Bouton de modification */
+.profil-edit-button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #1d7130;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* État au survol du bouton */
+.edit-button {
+    width: 80%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold; /* Gras pour le texte du bouton */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition pour le bouton */
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    .profil-container {
+        padding: 10px;
+    }
+    
+    .profil-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profil-info-table td {
+        font-size: 16px;
+    }
+    
+    .profil-edit-button {
+        padding: 10px 15px;
+    }
+}

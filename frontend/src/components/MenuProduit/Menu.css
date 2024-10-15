@@ -1,7 +1,7 @@
 /* Styles du menu */
 .menu {
     width: 100%; /* Le menu prend toute la largeur du conteneur parent */
-    max-width: 300px; /* Limite la largeur à 300px */
+    max-width: 200px; /* Limite la largeur à 300px */
     background-color: #f4f4f4; /* Couleur de fond du menu */
     padding: 20px; /* Espacement interne */
     border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */

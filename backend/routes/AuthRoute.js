@@ -5,6 +5,7 @@ import {
 } from '../controllers/AuthController.js';
 import { requireSignIn } from '../middlewares/authMiddleware.js';
 import {createProduit ,getProduits} from '../controllers/ProduitController.js'
+import {updateUser} from '../controllers/UpdateUser.js'
 // Router object
 const router = express.Router();
 
@@ -20,6 +21,8 @@ router.post('/loginUser',loginController);
 router.post('/createProduit',createProduit);
 //afficher tous les produit 
 router.get('/getProduits', getProduits);
+//modifer user
+router.put('/updateUser',updateUser)
 
 
 

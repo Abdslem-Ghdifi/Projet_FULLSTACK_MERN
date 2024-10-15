@@ -1,27 +1,53 @@
-/* Conteneur principal avec le contenu et le menu */
+/* Conteneur principal avec le contenu et les deux menus */
 .app-container {
-    display: flex; /* Utilise Flexbox pour l'alignement */
+    display: flex; /* Flexbox pour aligner les menus et le contenu */
+    height: 100vh; /* Hauteur pleine de la fenêtre */
+}
+
+/* Le contenu principal au centre */
+.content {
+    flex: 1; /* Le contenu prend tout l'espace restant entre les menus */
+    padding: 20px; /* Espacement interne */
+    overflow-y: auto; /* Défilement si le contenu dépasse */
+    background-color: #f9f9f9; /* Couleur de fond */
+    margin-top: 60px; /* Espace en haut pour la navbar */
+}
+
+/* Le menu à droite */
+.menuDroite {
+    width: 20%; /* Le menu à droite prend 20% de la largeur */
     height: calc(100vh - 60px); /* Hauteur pleine, moins la hauteur de la navbar */
-    padding-top: 60px; /* Ajoute une marge pour éviter que le contenu soit caché derrière la navbar */
-  }
-  
-  /* Le contenu principal à gauche */
-  .content {
-    width: 75%; /* Le contenu principal prend 75% de la largeur */
-    padding: 20px; /* Ajoute un espacement interne */
-    overflow-y: auto; /* Permet le défilement si le contenu est trop grand */
-    background-color: #f9f9f9; /* Couleur de fond du contenu */
-  }
-  
-  /* Le menu à droite */
-  .menuDroite {
-    width: 25%; /* Le menu prend 25% de la largeur */
-    height: 400px; /* Hauteur pleine, moins la hauteur de la navbar */
-    position: relative; /* Positionne le menu de manière absolue */
-    top: 60px; /* Place le menu juste en dessous de la navbar */
-    right: 0; /* Aligne le menu à droite */
-    background-color: #f4f4f4; /* Couleur de fond du menu */
+    position: relative; /* Position fixe pour garder le menu en place */
+    background-color: #f4f4f4; /* Couleur de fond */
     border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */
+    overflow-y: auto; /* Permet le défilement si le contenu du menu dépasse */
+}
+
+/* Le menu à gauche */
+.menuGauche {
+    width: 30%; /* Le menu à gauche prend 20% de la largeur */
+    height: calc(100vh - 60px); /* Hauteur pleine, moins la hauteur de la navbar */
+    position: relative; /* Position fixe pour garder le menu en place */
+    background-color: #f4f4f4; /* Couleur de fond */
+    border-right: 1px solid #ddd; /* Bordure à droite pour séparer du contenu */
     overflow-y: auto; /* Permet le défilement si le menu est trop grand */
-  }
-  
+    padding-top: 60px; /* Espace pour éviter de chevaucher la navbar */
+}
+
+/* Ajustement pour s'assurer que le contenu reste centré et bien espacé */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1d7130; /* Vert pour correspondre au design global */
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333; /* Texte en noir */
+}
+
+strong {
+    color: #1d7130; /* Couleur verte pour les labels des informations */
+}
