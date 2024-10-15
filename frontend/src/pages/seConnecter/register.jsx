@@ -14,7 +14,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [motdepasse, setMotdepasse] = useState('');
   const [adresse, setAdresse] = useState('');
-  const [imageProfil, setImageProfil] = useState(null); // État pour l'image de profil
+  const [imageProfil, setImageProfil] = useState(''); // État pour l'image de profil (optionnel)
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,35 +22,29 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Créer un objet FormData pour envoyer les données
-    const formData = new FormData();
-    formData.append('cin', cin);
-    formData.append('nom', nom);
-    formData.append('prenom', prenom);
-    formData.append('dateNais', dateNais);
-    formData.append('tel', tel);
-    formData.append('email', email);
-    formData.append('motdepasse', motdepasse);
-    formData.append('adresse', adresse);
-
-    // Si aucune image n'est téléchargée, utiliser l'image par défaut
-    if (imageProfil) {
-      formData.append('imageProfil', imageProfil);
-    } else {
-      // Remplacer par l'URL de l'image par défaut
-      formData.append('imageProfil', '../../assets/profil.jpg'); // Remplace par le chemin de ton image par défaut
-    }
+    // Création de l'objet utilisateur à envoyer
+    const userData = {
+      cin,
+      nom,
+      prenom,
+      dateNais,
+      tel,
+      email,
+      motdepasse,
+      adresse,
+      imageProfil: imageProfil ? imageProfil : '../../assets/profil.jpg',  // Image par défaut si aucune image n'est sélectionnée
+    };
 
     try {
-      const response = await axios.post(`/api/v1/auth/RegisterUser`, formData, {
+      const response = await axios.post(`/api/v1/auth/RegisterUser`, userData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',  // Spécifier le type JSON
         },
       });
 
       if (response.data.success) {
-        toast.success(response.data.message || 'Inscription réussie');
-        navigate('/login');
+        toast.success(response.data.message);
+        navigate('/login');  // Rediriger vers la page de connexion après l'inscription
       } else {
         toast.error(response.data.message || 'Erreur lors de l\'inscription');
       }
@@ -100,7 +94,12 @@ const Register = () => {
         </div>
         <div>
           <label>Image de Profil:</label>
-          <input type="file" accept="image/*" onChange={(e) => setImageProfil(e.target.files[0])} />
+          <input
+            type="text"
+            placeholder="URL de l'image"
+            value={imageProfil}
+            onChange={(e) => setImageProfil(e.target.value)} // Utiliser un champ texte pour l'URL de l'image
+          />
         </div>
         <div>
           <input type="submit" value={loading ? 'Inscription...' : 'S\'inscrire'} disabled={loading} />
