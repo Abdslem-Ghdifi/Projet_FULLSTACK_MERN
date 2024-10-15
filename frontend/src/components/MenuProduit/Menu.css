@@ -1,0 +1,40 @@
+/* Styles du menu */
+.menu {
+    width: 100%; /* Le menu prend toute la largeur du conteneur parent */
+    max-width: 300px; /* Limite la largeur à 300px */
+    background-color: #f4f4f4; /* Couleur de fond du menu */
+    padding: 20px; /* Espacement interne */
+    border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */
+    height: 300px; /* Hauteur pleine, moins la hauteur de la navbar */
+    position: absolute; /* Positionne le menu en absolu */
+    top: 60px; /* Positionne le menu juste en dessous de la navbar */
+    right: 0; /* Aligne le menu à droite */
+    overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+}
+
+/* Liste des éléments du menu */
+.menu-list {
+    list-style: none; /* Supprime les puces de la liste */
+    padding: 0; /* Supprime le remplissage par défaut */
+    margin: 0; /* Supprime la marge par défaut */
+}
+
+.menu-list li {
+    padding: 15px 20px; /* Espacement interne pour chaque élément */
+    margin-bottom: 10px; /* Espace entre les éléments */
+    font-size: 18px; /* Taille de la police */
+    font-weight: 500; /* Poids de la police */
+    cursor: pointer; /* Change le curseur au survol */
+    border-radius: 8px; /* Coins arrondis */
+   
+    color: black; /* Couleur du texte par défaut */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour l'élément actif */
+}
+
+/* Supprimer l'effet de survol */
+.menu-list li:hover {
+    background-color: #1d7130; /* Couleur de fond au survol (garde le vert) */
+    color: white; /* Couleur du texte au survol */
+}
+
+

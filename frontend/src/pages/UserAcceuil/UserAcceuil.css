@@ -1,0 +1,27 @@
+/* Conteneur principal avec le contenu et le menu */
+.app-container {
+    display: flex; /* Utilise Flexbox pour l'alignement */
+    height: calc(100vh - 60px); /* Hauteur pleine, moins la hauteur de la navbar */
+    padding-top: 60px; /* Ajoute une marge pour éviter que le contenu soit caché derrière la navbar */
+  }
+  
+  /* Le contenu principal à gauche */
+  .content {
+    width: 75%; /* Le contenu principal prend 75% de la largeur */
+    padding: 20px; /* Ajoute un espacement interne */
+    overflow-y: auto; /* Permet le défilement si le contenu est trop grand */
+    background-color: #f9f9f9; /* Couleur de fond du contenu */
+  }
+  
+  /* Le menu à droite */
+  .menuDroite {
+    width: 25%; /* Le menu prend 25% de la largeur */
+    height: 400px; /* Hauteur pleine, moins la hauteur de la navbar */
+    position: relative; /* Positionne le menu de manière absolue */
+    top: 60px; /* Place le menu juste en dessous de la navbar */
+    right: 0; /* Aligne le menu à droite */
+    background-color: #f4f4f4; /* Couleur de fond du menu */
+    border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */
+    overflow-y: auto; /* Permet le défilement si le menu est trop grand */
+  }
+  

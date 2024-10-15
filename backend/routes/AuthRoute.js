@@ -1,7 +1,7 @@
 import express from 'express';
 import { 
     registerController ,
-    loginController ,testController,
+    loginController ,
 } from '../controllers/AuthController.js';
 import { requireSignIn } from '../middlewares/authMiddleware.js';
 import {createProduit ,getProduits} from '../controllers/ProduitController.js'
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/RegisterUser', registerController);
 
 //test routes 
-router.get('/test',requireSignIn ,testController);
+router.get('/test',requireSignIn );
 
 //login
 router.post('/loginUser',loginController);

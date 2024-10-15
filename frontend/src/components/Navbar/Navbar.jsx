@@ -12,8 +12,6 @@ const Navbar = () => {
         <li onClick={()=>setMenu("Catalogue")} className={menu==="Catalogue"?"active":""}>Catalogue</li>
         <li onClick={()=>setMenu("Profile")} className={menu==="Profile"?"active":""}>Profile</li>
         <li onClick={()=>setMenu("Commande")} className={menu==="Commande"?"active":""}>Commande</li>
-        <li onClick={()=>setMenu("Contact")} className={menu==="Contact"?"active":""}>Contact admin</li>
-        
       </ul>
       <div className="navbar-right">
         <img src={images.iconSearch} className="icon" />

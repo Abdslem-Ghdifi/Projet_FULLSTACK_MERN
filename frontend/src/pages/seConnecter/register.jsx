@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'; 
-import './register.css'  // Assurez-vous d'ajouter votre fichier CSS
+import './register.css';  // Assurez-vous d'ajouter votre fichier CSS
 import { useNavigate } from 'react-router-dom';
+
 const Register = () => {
   const [cin, setCin] = useState('');
   const [nom, setNom] = useState('');
@@ -13,25 +14,41 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [motdepasse, setMotdepasse] = useState('');
   const [adresse, setAdresse] = useState('');
+  const [imageProfil, setImageProfil] = useState(null); // État pour l'image de profil
   const [loading, setLoading] = useState(false);
-  const navigate =useNavigate() ;
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    // Créer un objet FormData pour envoyer les données
+    const formData = new FormData();
+    formData.append('cin', cin);
+    formData.append('nom', nom);
+    formData.append('prenom', prenom);
+    formData.append('dateNais', dateNais);
+    formData.append('tel', tel);
+    formData.append('email', email);
+    formData.append('motdepasse', motdepasse);
+    formData.append('adresse', adresse);
+
+    // Si aucune image n'est téléchargée, utiliser l'image par défaut
+    if (imageProfil) {
+      formData.append('imageProfil', imageProfil);
+    } else {
+      // Remplacer par l'URL de l'image par défaut
+      formData.append('imageProfil', '../../assets/profil.jpg'); // Remplace par le chemin de ton image par défaut
+    }
+
     try {
-      const response = await axios.post(`/api/v1/auth/RegisterUser`, {
-        cin,
-        nom,
-        prenom,
-        dateNais,
-        tel,
-        email,
-        motdepasse,
-        adresse,
+      const response = await axios.post(`/api/v1/auth/RegisterUser`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      if ( response.data.success) {
+      if (response.data.success) {
         toast.success(response.data.message || 'Inscription réussie');
         navigate('/login');
       } else {
@@ -44,8 +61,6 @@ const Register = () => {
       setLoading(false);
     }
   };
-  
- 
 
   return (
     <div id='register'>
@@ -82,6 +97,10 @@ const Register = () => {
         <div>
           <label>Adresse:</label>
           <input type="text" value={adresse} onChange={(e) => setAdresse(e.target.value)} required />
+        </div>
+        <div>
+          <label>Image de Profil:</label>
+          <input type="file" accept="image/*" onChange={(e) => setImageProfil(e.target.files[0])} />
         </div>
         <div>
           <input type="submit" value={loading ? 'Inscription...' : 'S\'inscrire'} disabled={loading} />
