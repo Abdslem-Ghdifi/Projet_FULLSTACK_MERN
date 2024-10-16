@@ -46,6 +46,10 @@ const SeConnecter = () => {
     }
   };
 
+  const handleForgotPassword = () => {
+    navigate('/forgot-password'); // Navigate to the forgot password page
+  };
+
   return (
     <div id='seconnceter'>
       <form onSubmit={handleSubmit}>
@@ -81,6 +85,17 @@ const SeConnecter = () => {
                   id='btc'
                   disabled={loading}
                 />
+              </td>
+            </tr>
+            <tr key="forgot-password-row">
+              <td>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  id="forgot-password-btn"
+                >
+                  Forgot Password?
+                </button>
               </td>
             </tr>
           </tbody>

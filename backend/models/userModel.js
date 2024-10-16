@@ -41,6 +41,13 @@ const userSchema = new mongoose.Schema({
     imageProfil: {  
         type: String, 
         default: '../../profil.jpg'   
+    },
+    //for password reset functionality
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
     }
 }, { timestamps: true });
 
