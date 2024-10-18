@@ -18,6 +18,8 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,10 +43,11 @@ const Register = () => {
           'Content-Type': 'application/json',  // Spécifier le type JSON
         },
       });
-
+      console.log(response.data)
       if (response.data.success) {
         toast.success(response.data.message);
-        navigate('/login');  // Rediriger vers la page de connexion après l'inscription
+        
+       navigate('/login');  // Rediriger vers la page de connexion après l'inscription
       } else {
         toast.error(response.data.message || 'Erreur lors de l\'inscription');
       }
@@ -55,6 +58,28 @@ const Register = () => {
       setLoading(false);
     }
   };
+  
+  
+
+  const  handleImg= (e)=>{
+      const file = e.target.files[0]
+      setLoading(true)
+      imageUpload(file)
+                .then((url) => {
+                    toast.dismiss();
+                    toast.success("Image uploaded successfully.");
+                    setImageProfil(url);
+                    console.log(url)
+                })
+                .catch((err) => {
+                    toast.dismiss();
+                    toast.error("Error while uploading your image...");
+                  
+                }).finally(()=>{
+                  setLoading(false)
+                })
+                
+  }
 
   return (
     <div id='register'>
@@ -95,10 +120,10 @@ const Register = () => {
         <div>
           <label>Image de Profil:</label>
           <input
-            type="text"
+            type="file"
             placeholder="URL de l'image"
-            value={imageProfil}
-            onChange={(e) => setImageProfil(e.target.value)} // Utiliser un champ texte pour l'URL de l'image
+          
+            onChange={handleImg} // Utiliser un champ texte pour l'URL de l'image
           />
         </div>
         <div>
@@ -111,3 +136,19 @@ const Register = () => {
 };
 
 export default Register;
+const imageUpload = async (file ) => {
+  const formData = new FormData();
+  if (file) {
+      formData.append("image", file);
+  }
+  try {
+      const response = await axios.post("http://localhost:8084/api/v1/auth/upload", formData, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+          },
+      });
+      return response.data.secure_url;
+  } catch (error) {
+      toast.error("An error occurred during image upload");
+  }
+};

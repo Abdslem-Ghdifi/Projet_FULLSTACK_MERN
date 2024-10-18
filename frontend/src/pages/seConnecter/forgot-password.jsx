@@ -12,11 +12,15 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    
     try {
-      const response = await axios.post(`/api/v1/auth/forgot-password`, { email }, {
+      const response = await axios.post(`/api/v1/auth/forgotpassword`, { email }, {
         headers: { 'Content-Type': 'application/json' }
+      // Check headers being sent
+
       });
+      console.log(document.cookie) // Check for large cookies
+      console.log(response.headers)
 
       if (response.data.success) {
         toast.success('Email de réinitialisation envoyé avec succès.');

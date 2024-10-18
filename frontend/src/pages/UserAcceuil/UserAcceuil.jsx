@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import MenuProduit from '../../components/MenuProduit/Menu';
 import ProfilUser from '../../components/ProfilUser/Profil';
 import './UserAcceuil.css';
+import Product from '../../components/product/Products'
+import Footer  from '../../components/footer/Footer';
 
 const UserAcceuil = () => {
   const location = useLocation();
@@ -21,14 +23,12 @@ const UserAcceuil = () => {
 
         {/* Contenu principal */}
         <div className="content">
-          <h1>Bienvenue, {user ? `${user.nom} ${user.prenom}` : 'Utilisateur'}</h1>
-          {user && (
+       
+      
             <div>
-              <p><strong>Email:</strong> {user.email}</p>
-              <p><strong>CIN:</strong> {user.cin}</p>
-              {/* Afficher d'autres informations si nécessaire */}
+              <Product/>
             </div>
-          )}
+          
         </div>
 
         {/* Menu à droite */}
@@ -36,8 +36,10 @@ const UserAcceuil = () => {
           <MenuProduit />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
+
 
 export default UserAcceuil;

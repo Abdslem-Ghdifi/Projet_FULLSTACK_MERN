@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './pages/seConnecter/register';
 import SeConnecter from './pages/seConnecter/seConnecter';  
 import Home from '../src/pages/home/home'
