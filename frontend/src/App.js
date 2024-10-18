@@ -8,6 +8,7 @@ import UserAccueil from './pages/UserAcceuil/UserAcceuil';
 import ModifierProfil from'./components/ProfilUser/ModifierProfil'
 import ForgotPassword from './pages/seConnecter/forgot-password';
 import ResetPassword from './pages/seConnecter/ResetPassword';
+import DeposerArticle from './components/Article/DeposerArticle';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/ModifierProfil' element={<ModifierProfil />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} /> 
+        <Route path='/DeposerArticle' element={<DeposerArticle />}></Route>
       </Routes>
     </Router>
   );

@@ -1,45 +1,67 @@
+/* Footer styles */
 .footer {
-    background-color: #2d2d2d; /* Dark background */
-    color: #fff; /* White text */
-    padding: 20px 0;
+  background-color: #938d8d;
+  color: white;
+  padding: 40px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.footer-container > div {
+  flex: 1;
+  padding: 20px;
+  min-width: 250px;
+}
+
+.footer h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+}
+
+.footer p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.social-icons {
+  font-size: 24px;
+}
+
+.social-icons i {
+  margin-right: 15px;
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px;
+  background-color: #155b24;
+  font-size: 14px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
     text-align: center;
   }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+
+  .footer-container > div {
+    margin-bottom: 20px;
   }
-  
-  .team-info, .contact-info {
-    flex: 1;
-  }
-  
-  .team-info ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .team-info ul li {
-    margin: 5px 0;
-  }
-  
-  .contact-info a {
-    color: #4CAF50; /* Green color for the email link */
-    text-decoration: none;
-  }
-  
-  .contact-info a:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-bottom {
-    margin-top: 20px;
-    border-top: 1px solid #444;
-    padding-top: 10px;
-    font-size: 14px;
-    color: #888;
-  }
-  
+}

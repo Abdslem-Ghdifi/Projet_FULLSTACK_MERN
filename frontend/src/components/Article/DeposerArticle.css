@@ -1,0 +1,57 @@
+#deposer-article {
+    margin: 0 auto;
+    max-width: 600px; /* Largeur maximale du formulaire */
+    padding: 20px; /* Espacement interne */
+    background-color: #f4f4f4; /* Couleur de fond */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre pour le conteneur */
+}
+
+h2 {
+    text-align: center; /* Centrer le titre */
+    color: #1d7130; /* Couleur du titre */
+    margin-bottom: 20px; /* Espacement sous le titre */
+}
+
+form {
+    display: flex; /* Utiliser flexbox pour le formulaire */
+    flex-direction: column; /* Aligner les éléments en colonne */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="file"],
+textarea,
+select {
+    width: 100%; /* Largeur complète */
+    padding: 10px; /* Espacement interne */
+    margin: 10px 0; /* Marges entre les champs */
+    border: 1px solid #ddd; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille de la police */
+}
+
+textarea {
+    resize: vertical; /* Permettre le redimensionnement vertical seulement */
+}
+
+input[type="submit"] {
+    background-color: #1d7130; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    cursor: pointer; /* Curseur pointer au survol */
+    padding: 10px; /* Espacement interne */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille de la police */
+    transition: background-color 0.3s ease; /* Transition pour le survol */
+}
+
+input[type="submit"]:hover {
+    background-color: #155b24; /* Couleur au survol */
+}
+
+.error {
+    color: red; /* Couleur pour les messages d'erreur */
+    font-size: 14px; /* Taille de la police des erreurs */
+}

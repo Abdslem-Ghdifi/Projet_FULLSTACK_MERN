@@ -1,60 +1,82 @@
-.navbar{
-    padding: 20px 0px ;
+/* Container principal de la navbar */
+.navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.navbar .logo{
-    width: 350px;
-    height: 180px;
-    
-}
-.navbar-menu{
-    display: flex;
+    justify-content: space-between; /* Espacement entre les éléments du menu et les icônes */
+    align-items: center; /* Alignement vertical au centre */
+    padding: 10px 20px;
+    color: black;
+  }
+  
+  /* Logo */
+  .logo {
+    height: 50px; /* Taille du logo */
+    width: auto;
+  }
+  
+  /* Menu de navigation */
+  .navbar-menu {
     list-style: none;
-    gap: 20px;
-    color: #495574;
-    font-size: 20px;
-}
-.navbar-right{
     display: flex;
-    text-align: center ;
-    gap: 40px;
-}
-.icon{
-    width: 40px;
-    height: 40px;
-}
-.navbar button{
-    background: transparent;
-    font-size: 20px;
-    color: rgb(33, 87, 33);
-    border: 1px solid rgb(33, 87, 33);
-    padding: 10px 30px;
-    border-radius: 50px;
+    gap: 20px; /* Espacement entre les éléments du menu */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-menu li {
     cursor: pointer;
-    transition: 0.3s;
-}
-.navbar button:hover{
-    background-color:rgb(33, 87, 33) ;
-    color: white;
-}
-.navbar .active{
+    padding: 10px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Style pour le lien actif */
+  .navbar-menu li.active {
+    color: #1d7130; /* Couleur du lien actif */
+    font-weight: bold;
     padding-bottom: 2px;
     border-bottom: 2px solid;
-}
-.navbar li{
+  }
+  
+  /* Partie droite de la navbar (icônes et bouton) */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
     cursor: pointer;
-}
-.navbar-search-icon{
+  }
+  
+  .navbar-search-icon {
     position: relative;
-}
-.navbar-search-icon .dot{
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
     position: absolute;
-    min-width: 10px;
-    min-height: 10px;
+    top: 0;
+    right: -5px;
+  }
+  
+  /* Bouton de déconnexion */
+  button {
+    margin-left: 20px;
+    padding: 10px 15px;
+    background-color: #1d7130;
+    color: white;
+    border: none;
     border-radius: 5px;
-    background-color:rgb(33, 87, 33) ;
-    top: -8px;
-    right: -8px;
-}
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #155b24;
+  }
+  

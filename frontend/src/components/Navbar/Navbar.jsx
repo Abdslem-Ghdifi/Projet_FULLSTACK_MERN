@@ -1,25 +1,57 @@
-import images from '../../assets/assets'
+import images from '../../assets/assets';
 import './Navbar.css';
-import  { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [menu,setMenu] = useState("Acceuiel");
+  const navigate = useNavigate(); // Initialiser useNavigate
+  const [menu, setMenu] = useState('Accueil'); // Initialisation à "Accueil"
+
+  const handleNavigation = (route) => {
+    setMenu(route); // Mettre à jour l'état du menu
+    navigate(route); // Naviguer vers la route correspondante
+  };
+
   return (
     <div className='navbar'>
-      <img src={images.logoWhite} alt="" className="logo" />
+      <img src={images.logoWhite} alt="Logo" className="logo" />
+      
+      {/* Menu */}
       <ul className="navbar-menu">
-        <li onClick={()=>setMenu("Acceuiel")} className={menu==="Acceuiel"?"active":""}>Acceuiel</li>
-        <li onClick={()=>setMenu("Catalogue")} className={menu==="Catalogue"?"active":""}>Catalogue</li>
-        <li onClick={()=>setMenu("Profile")} className={menu==="Profile"?"active":""}>Profile</li>
-        <li onClick={()=>setMenu("Commande")} className={menu==="Commande"?"active":""}>Commande</li>
+        <li 
+          onClick={() => handleNavigation('/')} // Route pour Accueil
+          className={menu === 'Accueil' ? 'active' : ''}
+        >
+          Accueil
+        </li>
+        <li 
+          onClick={() => handleNavigation('/commande')} // Route pour Commande
+          className={menu === 'Commande' ? 'active' : ''}
+        >
+          Commande
+        </li>
+        <li 
+          onClick={() => handleNavigation('/categorie')} // Route pour Catégorie
+          className={menu === 'Catégorie' ? 'active' : ''}
+        >
+          Catégorie
+        </li>
+        <li 
+          onClick={() => handleNavigation('/contact')} // Route pour Contact admin
+          className={menu === 'Contact admin' ? 'active' : ''}
+        >
+          Contact admin
+        </li>
       </ul>
+
+      {/* Right side of Navbar */}
       <div className="navbar-right">
-        <img src={images.iconSearch} className="icon" />
+        <img src={images.iconSearch} className="icon" alt="Search Icon" />
         <div className="navbar-search-icon">
-          <img src={images.iconBasket} className="icon" />
+          <img src={images.iconBasket} className="icon" alt="Basket Icon" />
           <div className="dot"></div>
         </div>
-        <button>déconnecter</button>
+        <button>Déconnecter</button>
       </div>  
     </div>
   );
