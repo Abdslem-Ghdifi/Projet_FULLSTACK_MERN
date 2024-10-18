@@ -13,12 +13,9 @@ const handleClick =() =>{
   return (
     <div className='header'>
       <div className="header-contents">
-        <h2>Explorez la nature et transformez votre espace avec Green Store</h2>
+        <h2>AGRAS Store</h2>
         <p>
-          Rejoignez Green Store, votre marketplace pour les passionnés de plantes et de nature ! Que vous
-          soyez débutant ou expert, découvrez notre sélection de plantes et de matériel de jardinage.
-          Inscrivez-vous maintenant pour des offres exclusives et des conseils d&apos;experts. Transformez votre
-          espace avec la beauté de la nature – connectez-vous dès aujourd&apos;hui et commencez votre aventure verte !
+        Agras is a team of young IT students with a shared passion for agriculture and technology. Our project is an online marketplace dedicated to offering a wide range of agricultural products and supplies. From seeds and tools to animal care products, we aim to make agriculture more accessible and efficient for everyone.
         </p>
         <button id='btn_connecter' onClick={handleConnectClick}> {/* Attach onClick handler */}
           se connecter

@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './pages/seConnecter/register';
 import SeConnecter from './pages/seConnecter/seConnecter';  
-import Home from '../src/pages/home/home'
+import Home from './pages/home/home'
 import UserAccueil from './pages/UserAcceuil/UserAcceuil';
 import ModifierProfil from'./components/ProfilUser/ModifierProfil'
 import ForgotPassword from './pages/seConnecter/forgot-password';
 import ResetPassword from './pages/seConnecter/ResetPassword';
+
 
 function App() {
   return (

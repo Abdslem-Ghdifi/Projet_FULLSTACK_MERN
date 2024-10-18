@@ -1,8 +1,8 @@
 .header {
     text-align: center;
-    height: 35vw;
+    height: 700px;
     margin: 30px auto;
-    background: url('/agraas.avif') no-repeat center center; /* Centre l'image de fond */
+    background: url('../../assets/bg.jpg') no-repeat center center; /* Centre l'image de fond */
     background-size: cover; /* Remplit toute la zone */
     position: relative;
     border: 5px solid white; /* Ajoute une bordure blanche */
