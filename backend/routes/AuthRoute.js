@@ -34,7 +34,7 @@ router.get('/getProduits', getProduits);
 router.put('/updateUser', updateUser);
 
 // Forgot password route
-router.post('/forgotpassword', async (req, res) => {
+/*router.post('/forgotpassword', async (req, res) => {
     const { email } = req.body;
 
     try {
@@ -104,6 +104,6 @@ router.post('/reset-password/:token', async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: 'Erreur lors de la réinitialisation du mot de passe' });
     }
-});
+});*/
 
 export default router;
