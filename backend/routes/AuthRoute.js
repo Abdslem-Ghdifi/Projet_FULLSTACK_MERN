@@ -4,11 +4,11 @@ import {
     loginController
 } from '../controllers/AuthController.js';
 import { requireSignIn } from '../middlewares/authMiddleware.js';
-import { createProduit, getProduits } from '../controllers/ProduitController.js';
+import { createProduit, getProduits, deleteProduct, updateProduct } from '../controllers/ProduitController.js';
 import { updateUser } from '../controllers/UpdateUser.js';
 import crypto from 'crypto'; // For generating reset token
 import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js'; // Import your User model
 
 // Router object
@@ -27,6 +27,12 @@ router.post('/loginUser', loginController);
 // Add a product
 router.post('/createProduit', createProduit);
 
+//delete product
+router.delete('/deleteProduit/:id', deleteProduct);
+
+//update product
+router.put('/updateProduit/:id', updateProduct);
+
 // Get all products
 router.get('/getProduits', getProduits);
 
@@ -34,7 +40,7 @@ router.get('/getProduits', getProduits);
 router.put('/updateUser', updateUser);
 
 // Forgot password route
-/*router.post('/forgotpassword', async (req, res) => {
+router.post('/forgotpassword', async (req, res) => {
     const { email } = req.body;
 
     try {
@@ -104,6 +110,6 @@ router.post('/reset-password/:token', async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: 'Erreur lors de la réinitialisation du mot de passe' });
     }
-});*/
+});
 
 export default router;

@@ -1,9 +1,21 @@
 import React from 'react';
 
 const ProductCard = ({ produit, addToCart }) => {
+
   if (!produit) {
-    return <p>Product not found</p>; // Handle undefined produit
+    return <p>Product not found</p>; 
   }
+
+  /*const handleUpdate = (id_p, updatedData) => {
+    updateProduct(id_p, updatedData);
+    setModalOpen(false); 
+  };*/
+
+  /*const handleDelete = () => {
+    if (window.confirm(`Are you sure you want to delete "${produit.nom}"?`)) {
+      deleteProduct(produit.id_p);
+    }
+  };*/
 
   return (
     <div className="card product-card m-2" style={{ width: '18rem' }}>
@@ -29,3 +41,14 @@ const ProductCard = ({ produit, addToCart }) => {
 };
 
 export default ProductCard;
+
+        /*<button 
+          className="btn btn-secondary" 
+          onClick={() => setModalOpen(true)}>
+          Update
+        </button>
+        <button 
+          className="btn btn-danger" 
+          onClick={handleDelete}>
+          Delete
+        </button>*/

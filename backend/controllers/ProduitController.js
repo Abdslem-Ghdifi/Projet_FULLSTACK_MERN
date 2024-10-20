@@ -1,5 +1,6 @@
 
 import Produit from '../models/ProduitModel.js';
+import mongoose from 'mongoose';
 
 // Fonction pour créer un produit et l'envoyer à l'API
 export const createProduit = async (req, res) => {
@@ -48,4 +49,52 @@ export const getProduits = async (req, res) => {
       });
     }
   };
+
+  // Delete product by ID
+export const deleteProduct = async (req, res) => {
+  const productId = req.params.id;
+
+  // Check if the ID is valid
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).json({ message: 'Invalid product ID' });
+  }
+
+  try {
+    const deletedProduct = await Produit.findByIdAndDelete(productId);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete product', error });
+  }
+};
+
+// Update product by ID
+export const updateProduct = async (req, res) => {
+  const productId = req.params.id;
+
+  // Check if the ID is valid
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).json({ message: 'Invalid product ID' });
+  }
+
+  try {
+    const updatedProduct = await Produit.findByIdAndUpdate(
+      productId,
+      { $set: req.body },
+      { new: true, runValidators: true } // Return the updated product and validate the data
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product updated successfully', updatedProduct });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update product', error });
+  }
+};
   

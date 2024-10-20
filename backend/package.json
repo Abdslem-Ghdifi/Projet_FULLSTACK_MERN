@@ -14,7 +14,6 @@
   "author": "AGRA",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "cloudinary": "^2.5.1",
@@ -32,5 +31,8 @@
     "nodemon": "^3.1.7",
     "proxy": "^2.2.0",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
   }
 }

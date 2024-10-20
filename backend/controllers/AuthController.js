@@ -1,4 +1,6 @@
-import { compare } from "bcrypt";
+import pkg from 'bcryptjs';
+const { compare } = pkg; // Correctly import compare function
+
 import { hashPassword } from "../helpers/AuthHelpers.js";
 import userModel from "../models/userModel.js";
 import JWT from 'jsonwebtoken';
@@ -60,61 +62,60 @@ export const registerController = async (req, res) => {
 // login
 export const loginController = async (req, res) => {
     try {
-      const { email, motdepasse } = req.body;
-      
-      // Validation
-      if (!email || !motdepasse) {
-        return res.send({ error: 'Email et mot de passe sont obligatoires !' });
-      }
-  
-      // Vérifier si l'utilisateur existe
-      const user = await userModel.findOne({ email });
-      if (!user) {
-        return res.status(404).send({
-          success: false,
-          message: 'Ce Email n\'existe pas !!',
+        const { email, motdepasse } = req.body;
+        
+        // Validation
+        if (!email || !motdepasse) {
+            return res.send({ error: 'Email et mot de passe sont obligatoires !' });
+        }
+
+        // Vérifier si l'utilisateur existe
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'Ce Email n\'existe pas !!',
+            });
+        }
+
+        // Comparer les mots de passe
+        const match = await compare(motdepasse, user.motdepasse);
+        if (!match) {
+            return res.status(200).send({
+                success: false,
+                message: 'Ce mot de passe est incorrect !!',
+            });
+        }
+
+        // Générer le token JWT
+        const token = await JWT.sign(
+            { _id: user.id },
+            process.env.JWT_SECRET, // Fixed spelling of JWT_SECRET
+            { expiresIn: "7d" }
+        );
+
+        // Réponse avec les informations utilisateur, y compris l'image de profil
+        res.status(201).send({
+            success: true,
+            message: 'Login successfully',
+            user: {
+                cin: user.cin,
+                nom: user.nom,
+                prenom: user.prenom,
+                dateNais: user.dateNais,
+                tel: user.tel,
+                email: user.email,
+                adresse: user.adresse,
+                imageProfil: user.imageProfil // Ajouter l'image de profil ici
+            },
+            token
         });
-      }
-  
-      // Comparer les mots de passe
-      const match = await compare(motdepasse, user.motdepasse);
-      if (!match) {
-        return res.status(200).send({
-          success: false,
-          message: 'Ce mot de passe est incorrect !!',
-        });
-      }
-  
-      // Générer le token JWT
-      const token = await JWT.sign(
-        { _id: user.id },
-        process.env.JWT_SECTRET,
-        { expiresIn: "7d" }
-      );
-  
-      // Réponse avec les informations utilisateur, y compris l'image de profil
-      res.status(201).send({
-        success: true,
-        message: 'Login successfully',
-        user: {
-          cin: user.cin,
-          nom: user.nom,
-          prenom: user.prenom,
-          dateNais: user.dateNais,
-          tel: user.tel,
-          email: user.email,
-          motdepasse: user.motdepasse,
-          adresse: user.adresse,
-          imageProfil: user.imageProfil // Ajouter l'image de profil ici
-        },
-        token
-      });
     } catch (error) {
-      console.log(error);
-      res.status(501).send({
-        success: false,
-        message: 'Problème lors de la connexion !!!',
-        error
-      });
+        console.log(error);
+        res.status(501).send({
+            success: false,
+            message: 'Problème lors de la connexion !!!',
+            error
+        });
     }
-  };
+};

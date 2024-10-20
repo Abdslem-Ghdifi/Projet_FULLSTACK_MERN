@@ -26,6 +26,29 @@ const Products = () => {
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
+   // Function to delete a product
+   /*const deleteProduct = async (id_p) => {
+    try {
+      const response = await axios.delete(`/api/v1/auth/deleteProduit/${id_p}`);
+      console.log('Product deleted:', response.data);
+    } catch (error) {  
+
+      console.error('Error deleting product:', error);
+    }
+  };*/
+
+  // Function to update a product
+  /*const updateProduct = async (productId, updatedData) => {
+    try {
+        const response = await axios.put(`/api/v1/auth/updateProduit/${productId}`, updatedData);
+        setProducts(products.map(product => 
+            product.id_p === productId ? { ...product, ...updatedData } : product
+        ));
+        console.log("Product updated successfully:", response.data);
+    } catch (error) {
+        console.error("Failed to update product:", error);
+    }
+};*/
 
   console.log("Products State:", products); // Log current products state
 

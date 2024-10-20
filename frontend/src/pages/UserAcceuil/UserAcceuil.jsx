@@ -8,8 +8,8 @@ import Product from '../../components/product/Products'
 import Footer  from '../../components/footer/Footer';
 
 const UserAcceuil = () => {
-  const location = useLocation();
-  const { user } = location.state || {}; // Récupérer les informations de l'utilisateur
+  //const location = useLocation();
+  //const { user } = location.state || {}; // Récupérer les informations de l'utilisateur
 
   return (
     <div>
