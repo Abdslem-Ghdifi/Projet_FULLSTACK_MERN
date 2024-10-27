@@ -13,26 +13,10 @@
     margin-top: 60px; /* Espace en haut pour la navbar */
 }
 
-/* Le menu à droite */
-.menuDroite {
-    width: 15%; /* Réduit la largeur du menu à droite à 15% */
-    height: calc(100vh - 60px); /* Hauteur pleine, moins la hauteur de la navbar */
-    position: relative; /* Position fixe pour garder le menu en place */
-    background-color: #f4f4f4; /* Couleur de fond */
-    border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */
-    overflow-y: auto; /* Permet le défilement si le contenu du menu dépasse */
-}
+
 
 /* Le menu à gauche */
-.menuGauche {
-    width: 25%; /* Réduit la largeur du menu à gauche à 25% */
-    height: calc(100vh - 60px); /* Hauteur pleine, moins la hauteur de la navbar */
-    position: relative; /* Position fixe pour garder le menu en place */
-    background-color: #f4f4f4; /* Couleur de fond */
-    border-right: 1px solid #ddd; /* Bordure à droite pour séparer du contenu */
-    overflow-y: auto; /* Permet le défilement si le menu est trop grand */
-    padding-top: 60px; /* Espace pour éviter de chevaucher la navbar */
-}
+
 
 /* Ajustement pour s'assurer que le contenu reste centré et bien espacé */
 h1 {

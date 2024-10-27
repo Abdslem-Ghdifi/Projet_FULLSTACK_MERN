@@ -1,23 +1,32 @@
 /* Styles du menu */
 .menu {
-    width: 100%; /* Le menu prend toute la largeur du conteneur parent */
-    max-width: 200px; /* Limite la largeur à 300px */
+    width: 100px; /* Le menu prend toute la largeur du conteneur parent */
+   
     background-color: #f4f4f4; /* Couleur de fond du menu */
     padding: 20px; /* Espacement interne */
     border-left: 1px solid #ddd; /* Bordure à gauche pour séparer du contenu */
-    height: 300px; /* Hauteur pleine, moins la hauteur de la navbar */
+    height: 35px; /* Hauteur pleine, moins la hauteur de la navbar */
     position: absolute; /* Positionne le menu en absolu */
-    top: 60px; /* Positionne le menu juste en dessous de la navbar */
-    right: 0; /* Aligne le menu à droite */
-    overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+    top: 60px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    overflow-y: auto; 
+    /* Permet le défilement si le contenu dépasse */
 }
 
 /* Liste des éléments du menu */
 .menu-list {
-    list-style: none; /* Supprime les puces de la liste */
-    padding: 0; /* Supprime le remplissage par défaut */
-    margin: 0; /* Supprime la marge par défaut */
-}
+    justify-content: center;
+    object-fit: cover;
+    height: 50px;
+    display: flex;
+    list-style: none;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 6px;
+    }
 
 .menu-list li {
     padding: 15px 20px; /* Espacement interne pour chaque élément */
@@ -26,15 +35,16 @@
     font-weight: 500; /* Poids de la police */
     cursor: pointer; /* Change le curseur au survol */
     border-radius: 8px; /* Coins arrondis */
-   
     color: black; /* Couleur du texte par défaut */
     transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour l'élément actif */
 }
 
-/* Supprimer l'effet de survol */
+/*Supprimer l'effet de survol */
 .menu-list li:hover {
-    background-color: #1d7130; /* Couleur de fond au survol (garde le vert) */
-    color: white; /* Couleur du texte au survol */
+    background-color: #ddd;
+    color: black;
 }
-
-
+.menu-list li:active {
+    background-color: #04AA6D;
+    color: white;
+}

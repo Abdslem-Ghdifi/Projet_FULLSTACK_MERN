@@ -1,16 +1,20 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Profil.css';
+import Footer from '../footer/Footer';
+import Navbar from '../Navbar/Navbar';
 
 const ProfilUser = () => {
+  
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = location.state || {}; // Récupérer les informations de l'utilisateur
 
   return (
     <div className="profil-container">
+          <Navbar/>
       <h2>Mon Profil</h2>
-
+    
       {user ? (
         <div className="profil-content">
           {/* Afficher l'image de profil */}
@@ -67,6 +71,7 @@ const ProfilUser = () => {
       ) : (
         <p>Aucune information utilisateur disponible</p>
       )}
+      <Footer/>
     </div>
   );
 };

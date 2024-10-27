@@ -13,5 +13,5 @@ router.get('/products', async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
-
+router.get('/getProduitsByVendeur', getProduitsByVendeur);
 export default router;

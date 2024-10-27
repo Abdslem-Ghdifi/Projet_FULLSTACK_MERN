@@ -3,44 +3,51 @@ import './Navbar.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
-  const navigate = useNavigate(); // Initialiser useNavigate
-  const [menu, setMenu] = useState('Accueil'); // Initialisation à "Accueil"
+const Navbar = ({ user }) => {
+  const navigate = useNavigate();
+  const [menu, setMenu] = useState('Accueil');
 
-  const handleNavigation = (route) => {
-    setMenu(route); // Mettre à jour l'état du menu
-    navigate(route); // Naviguer vers la route correspondante
+  const handleNavigation = (route, menuName) => {
+    setMenu(menuName);
+    navigate(route, { state: { user } });
+    console.log(user);
   };
 
   return (
-    <div className='navbar'>
+    <div className="navbar">
       <img src={images.logoWhite} alt="Logo" className="logo" />
-      
+
       {/* Menu */}
       <ul className="navbar-menu">
-        <li 
-          onClick={() => handleNavigation('/')} // Route pour Accueil
+        <li
+          onClick={() => handleNavigation('/userAcceuil', 'Accueil')}
           className={menu === 'Accueil' ? 'active' : ''}
         >
           Accueil
         </li>
-        <li 
-          onClick={() => handleNavigation('/commande')} // Route pour Commande
+        <li
+          onClick={() => handleNavigation('/commande', 'Commande')}
           className={menu === 'Commande' ? 'active' : ''}
         >
           Commande
         </li>
-        <li 
-          onClick={() => handleNavigation('/categorie')} // Route pour Catégorie
+        <li
+          onClick={() => handleNavigation('/categorie', 'Catégorie')}
           className={menu === 'Catégorie' ? 'active' : ''}
         >
           Catégorie
         </li>
-        <li 
-          onClick={() => handleNavigation('/contact')} // Route pour Contact admin
+        <li
+          onClick={() => handleNavigation('/contact', 'Contact admin')}
           className={menu === 'Contact admin' ? 'active' : ''}
         >
           Contact admin
+        </li>
+        <li
+          onClick={() => handleNavigation('/profil', 'Profil')}
+          className={menu === 'Profil' ? 'active' : ''}
+        >
+          Profil
         </li>
       </ul>
 
@@ -52,9 +59,9 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
         <button>Déconnecter</button>
-      </div>  
+      </div>
     </div>
   );
-}
+};
 
 export default Navbar;

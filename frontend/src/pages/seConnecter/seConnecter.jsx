@@ -27,6 +27,7 @@ const SeConnecter = () => {
         
         // Navigation vers la page d'accueil avec les informations utilisateur
         navigate('/userAcceuil', { state: { user: response.data.user } });
+        console.log(response.data.user )
       } else {
         toast.error(response.data.message || 'Erreur lors de la connexion');
       }

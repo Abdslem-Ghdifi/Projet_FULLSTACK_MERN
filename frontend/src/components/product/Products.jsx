@@ -12,7 +12,7 @@ const Products = () => {
       try {
         const response = await axios.get('/api/v1/auth/getProduits');
         const data = response.data; // This is your response object
-        console.log("Fetched Products:", data); // Check what data is being fetched
+         // Check what data is being fetched
         setProducts(data.produits); // Set products state with the 'produits' array
       } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -50,7 +50,8 @@ const Products = () => {
     }
 };*/
 
-  console.log("Products State:", products); // Log current products state
+ 
+// Log current products state
 
   return (
     <div className="products-page container">

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Products.css';
 const ProductCard = ({ produit, addToCart }) => {
 
   if (!produit) {
@@ -31,7 +31,7 @@ const ProductCard = ({ produit, addToCart }) => {
         <p className="card-text"><strong>Price:</strong> ${produit.prix}</p>
         <p className="card-text"><strong>Stock:</strong> {produit.stock}</p>
         <button 
-          className="btn btn-primary" 
+          className="btn" 
           onClick={() => addToCart(produit)}>
           Add to Panier
         </button>
