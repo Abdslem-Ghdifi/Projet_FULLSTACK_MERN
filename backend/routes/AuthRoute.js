@@ -23,7 +23,7 @@ router.get('/test', requireSignIn);
 
 // Login User
 router.post('/loginUser', loginController);
-
+router.get('/fetchUser', authenticateToken, fetchUserController);
 // Add a product
 router.post('/createProduit', createProduit);
 

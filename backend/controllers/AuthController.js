@@ -59,11 +59,11 @@ export const registerController = async (req, res) => {
     }
 };
 
-// login
+// Login controller
 export const loginController = async (req, res) => {
     try {
         const { email, motdepasse } = req.body;
-        
+
         // Validation
         if (!email || !motdepasse) {
             return res.send({ error: 'Email et mot de passe sont obligatoires !' });
@@ -119,3 +119,51 @@ export const loginController = async (req, res) => {
         });
     }
 };
+// Middleware to authenticate token
+const authenticateToken = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1]; // Extract token from the Authorization header
+
+    if (!token) {
+        return res.sendStatus(401); // Unauthorized if no token is found
+    }
+
+    JWT.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.sendStatus(403); // Forbidden if token is invalid
+        }
+        req.user = user; // Attach the user info to the request
+        next(); // Proceed to the next middleware/controller
+    });
+};
+
+// Fetch user details controller
+export const fetchUserController = async (req, res) => {
+    try {
+        // Use the user ID stored in the token
+        const userId = req.user._id;
+
+        // Find user in the database
+        const user = await userModel.findById(userId).select('-motdepasse'); // Exclude password from the response
+
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        res.status(200).send({
+            success: true,
+            message: 'User fetched successfully',
+            user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Error fetching user details',
+            error,
+        });
+    }
+};
+
