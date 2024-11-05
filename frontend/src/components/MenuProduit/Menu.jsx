@@ -9,8 +9,8 @@ function Menu({ user }) {
 
   const handleNavigation = (path, menuName) => {
     setActiveMenu(menuName);
-    navigate(path, { state: { user } });
-    console.log('menu',user)
+    navigate(path);
+
   };
 
   return (

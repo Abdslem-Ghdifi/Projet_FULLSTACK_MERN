@@ -13,8 +13,8 @@ const UserAcceuil = () => {
   return (
     <>
       <div>
-        <Navbar user={user} /> {/* Pass user data as a prop */}
-        <MenuProduit user={user}  />
+        <Navbar  /> {/* Pass user data as a prop */}
+      
         <div>
           <Product />
         </div>

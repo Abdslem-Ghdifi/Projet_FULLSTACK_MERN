@@ -9,8 +9,24 @@ const Navbar = ({ user }) => {
 
   const handleNavigation = (route, menuName) => {
     setMenu(menuName);
-    navigate(route, { state: { user } });
-    console.log(user);
+    navigate(route);
+  };
+
+  const handleSelectChange = (event) => {
+    const selectedOption = event.target.value;
+    switch (selectedOption) {
+      case 'Déposer un produit':
+        handleNavigation('/DeposerArticle', 'Déposer un produit');
+        break;
+      case 'Afficher liste des produits':
+        handleNavigation('/Producrved', 'Afficher liste des produits');
+        break;
+      case 'Voir les commandes':
+        handleNavigation('/commandes', 'Voir les commandes');
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -53,12 +69,19 @@ const Navbar = ({ user }) => {
 
       {/* Right side of Navbar */}
       <div className="navbar-right">
+      <select className="dropdown-select" onChange={handleSelectChange}>
+          <option value="">Select an option</option>
+          <option value="Déposer un produit">Déposer un produit</option>
+          <option value="Afficher liste des produits">Afficher liste des produits</option>
+          <option value="Voir les commandes">Voir les commandes</option>
+        </select>
         <img src={images.iconSearch} className="icon" alt="Search Icon" />
         <div className="navbar-search-icon">
           <img src={images.iconBasket} className="icon" alt="Basket Icon" />
           <div className="dot"></div>
         </div>
-        <button>Déconnecter</button>
+      
+        <button className="btn">Déconnecter</button>
       </div>
     </div>
   );

@@ -1,82 +1,128 @@
 /* Container principal de la navbar */
 .navbar {
-    display: flex;
-    justify-content: space-between; /* Espacement entre les éléments du menu et les icônes */
-    align-items: center; /* Alignement vertical au centre */
-    padding: 10px 20px;
-    color: black;
+  display: flex;
+  justify-content: space-between; /* Espacement entre les éléments du menu et les icônes */
+  align-items: center; /* Alignement vertical au centre */
+  padding: 10px 20px;
+  color: black;
+  background-color: #ffffff; /* Background color of the navbar */
+}
+
+/* Logo */
+.logo {
+  height: 50px; /* Taille du logo */
+  width: auto;
+}
+
+/* Menu de navigation */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Increased spacing between items */
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu li {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* Change color on hover */
+.navbar-menu li:hover {
+  color: #155b24; /* Slight color change on hover */
+}
+
+/* Style pour le lien actif */
+.navbar-menu li.active {
+  color: #1d7130; /* Couleur du lien actif */
+  font-weight: bold;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #1d7130; /* Active item border */
+  background-color: #e6f7e6; /* Light background for active state */
+  border-radius: 4px; /* Rounded corners for active state */
+}
+
+/* Dropdown Select Styling */
+.dropdown-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  margin-left: 20px; /* Add spacing for aesthetics */
+}
+
+.dropdown-select:focus {
+  outline: none;
+  border-color: #1d7130;
+}
+
+/* Partie droite de la navbar (icônes et bouton) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.navbar-search-icon {
+  position: relative;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
+
+/* Bouton de déconnexion */
+.btn {
+  margin-left: 20px;
+  padding: 10px 15px;
+  background-color: #1d7130;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #155b24;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  /* Logo */
-  .logo {
-    height: 50px; /* Taille du logo */
-    width: auto;
-  }
-  
-  /* Menu de navigation */
   .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px; /* Espacement entre les éléments du menu */
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  .navbar-menu li {
-    cursor: pointer;
-    padding: 10px;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  /* Style pour le lien actif */
-  .navbar-menu li.active {
-    color: #1d7130; /* Couleur du lien actif */
-    font-weight: bold;
-    padding-bottom: 2px;
-    border-bottom: 2px solid;
-  }
-  
-  /* Partie droite de la navbar (icônes et bouton) */
+
   .navbar-right {
-    display: flex;
-    align-items: center;
+    margin-top: 10px;
   }
-  
-  .icon {
-    width: 24px;
-    height: 24px;
-    margin-left: 20px;
-    cursor: pointer;
+
+  .dropdown {
+    margin-top: 10px; /* Space above the dropdown */
   }
-  
-  .navbar-search-icon {
-    position: relative;
-  }
-  
-  .dot {
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    right: -5px;
-  }
-  
-  /* Bouton de déconnexion */
-  button {
-    margin-left: 20px;
-    padding: 10px 15px;
-    background-color: #1d7130;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #155b24;
-  }
-  
+}

@@ -19,27 +19,35 @@ const SeConnecter = () => {
     try {
       const response = await axios.post(`/api/v1/auth/loginUser`, 
         { email, motdepasse }, 
-        { headers: { 'Content-Type': 'application/json' } } 
+        { headers: { 'Content-Type': 'application/json' } }   
       );
 
       if (response.data.success) {
         toast.success(response.data.message);
         
-        // Navigation vers la page d'accueil avec les informations utilisateur
-        navigate('/userAcceuil', { state: { user: response.data.user } });
-        console.log(response.data.user )
+        // Get the token from the response
+        const token = response.data.token; // Assuming the token is sent in the response
+console.log(token)
+        // Store token in local storage
+       // localStorage.setItem('token', token);
+        
+        // Store user data in local storage
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+
+        // Navigation vers la page d'accueil
+        navigate('/userAcceuil');
       } else {
         toast.error(response.data.message || 'Erreur lors de la connexion');
       }
     } catch (error) {
       if (error.response) {
-        // Si la réponse du serveur est différente de 2xx
+        // If the server response is not 2xx
         toast.error(error.response.data.message || 'Erreur lors de la connexion');
       } else if (error.request) {
-        // Si aucune réponse n'a été reçue
+        // If no response was received
         toast.error('Pas de réponse du serveur');
       } else {
-        // Erreur sur la configuration de la requête
+        // Error in request setup
         toast.error('Erreur lors de la requête');
       }
     } finally {
@@ -50,6 +58,7 @@ const SeConnecter = () => {
   const handleForgotPassword = () => {
     navigate('/forgot-password'); // Navigate to the forgot password page
   };
+  console.log(localStorage.getItem('token'))
 
   return (
     <div id='seconnceter'>
