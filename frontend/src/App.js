@@ -9,8 +9,9 @@ import ModifierProfil from'./components/ProfilUser/ModifierProfil'
 import ForgotPassword from './pages/seConnecter/forgot-password';
 import ResetPassword from './pages/seConnecter/ResetPassword';
 import DeposerArticle from './components/Article/DeposerArticle';
-import Profil from './components/ProfilUser/Profil'
-import Producrved from './components/product/Producrved'
+import Profil from './components/ProfilUser/Profil';
+import Producrved from './components/product/Producrved';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} /> 
         <Route path='/DeposerArticle' element={<DeposerArticle />}></Route>
+        <Route path="/cart" element={<Cart />} />    
         <Route path='/profil' element={<Profil />}></Route>
         <Route path='/Producrved' element={<Producrved />}></Route>
       </Routes>

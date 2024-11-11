@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -11,9 +11,37 @@ const AjouterProduit = () => {
   const [prix, setPrix] = useState('');
   const [categorie, setCategorie] = useState('materiel');
   const [stock, setStock] = useState('');
-  const [image, setImage] = useState(''); // État pour l'image du produit
+  const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState(null); // État pour stocker l'ID utilisateur
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('token'); 
+      if (!token) {
+        navigate('/login'); // Redirige si aucun token n'est disponible
+        return;
+      }
+      
+      try {
+        const response = await axios.get('/api/v1/auth/fetchUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.data.success) {
+          setUserId(response.data.user._id); // Stocke l'ID utilisateur
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données utilisateur :', error);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,19 +54,20 @@ const AjouterProduit = () => {
       prix,
       categorie,
       stock,
-      image: image ? image : '', // Image par défaut si aucune image n'est sélectionnée
+      image: image || '', // Image par défaut si aucune image n'est sélectionnée
+      vendeur: userId, // ID utilisateur comme vendeur
     };
 
     try {
       const response = await axios.post('/api/v1/auth/createProduit', produitData, {
         headers: {
-          'Content-Type': 'application/json', // Spécifier le type JSON
+          'Content-Type': 'application/json',
         },
       });
 
       if (response.data.success) {
         toast.success(response.data.message);
-        navigate('/userAcceuil'); // Rediriger vers la page des produits après l'ajout
+        navigate('/userAcceuil'); // Rediriger vers la page d'accueil après l'ajout
       } else {
         toast.error(response.data.message || 'Erreur lors de l\'ajout du produit');
       }
@@ -61,7 +90,7 @@ const AjouterProduit = () => {
       })
       .catch((err) => {
         toast.dismiss();
-        toast.error("Error while uploading your image...");
+        toast.error("Erreur lors du téléchargement de l'image.");
       })
       .finally(() => {
         setLoading(false);
@@ -126,9 +155,9 @@ const imageUpload = async (file) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data.secure_url; // Assurez-vous que votre API retourne l'URL de l'image
+    return response.data.secure_url;
   } catch (error) {
-    toast.error("An error occurred during image upload");
-    throw error; // Pour que le catch dans handleImg fonctionne
+    toast.error("Erreur lors du téléchargement de l'image");
+    throw error;
   }
 };

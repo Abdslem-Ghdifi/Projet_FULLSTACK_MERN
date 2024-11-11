@@ -45,8 +45,6 @@ const Register = () => {
       });
       console.log(response.data)
       if (response.data.success) {
-        toast.success(response.data.message);
-        
        navigate('/login');  // Rediriger vers la page de connexion après l'inscription
       } else {
         toast.error(response.data.message || 'Erreur lors de l\'inscription');

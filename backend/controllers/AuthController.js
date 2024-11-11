@@ -120,7 +120,7 @@ export const loginController = async (req, res) => {
     }
 };
 // Middleware to authenticate token
-const authenticateToken = (req, res, next) => {
+export const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1]; // Extract token from the Authorization header
 
     if (!token) {

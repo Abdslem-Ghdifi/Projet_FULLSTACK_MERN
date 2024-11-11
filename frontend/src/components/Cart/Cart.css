@@ -1,0 +1,101 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container principal du panier */
+.cart-items {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Style pour chaque article dans le panier */
+.cart-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    gap: 15px;
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.cart-item h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.cart-item p {
+    margin: 0;
+    color: #555;
+}
+
+/* Bouton Supprimer dans chaque article */
+.cart-item button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 10px; /* Ajuste le padding pour un bouton plus petit */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem; /* Taille de texte plus petite */
+    margin-left: auto;
+    width: auto;
+}
+
+.cart-item button:hover {
+    background-color: #e63946;
+}
+
+/* Style pour la section du total */
+.total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Bouton de confirmation de commande */
+.confirm-button {
+    display: block;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.confirm-button:hover {
+    background-color: #218838;
+}

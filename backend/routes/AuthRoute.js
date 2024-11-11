@@ -1,7 +1,9 @@
 import express from 'express';
 import { 
     registerController,
-    loginController
+    loginController,
+    authenticateToken,
+    fetchUserController 
 } from '../controllers/AuthController.js';
 import { requireSignIn } from '../middlewares/authMiddleware.js';
 import { createProduit, getProduits, deleteProduct, updateProduct } from '../controllers/ProduitController.js';
@@ -10,6 +12,8 @@ import crypto from 'crypto'; // For generating reset token
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js'; // Import your User model
+import { addToCart, removeFromCart, getCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
+
 
 // Router object
 const router = express.Router();
@@ -23,14 +27,17 @@ router.get('/test', requireSignIn);
 
 // Login User
 router.post('/loginUser', loginController);
-//router.get('/fetchUser', authenticateToken, fetchUserController);
+
+// Fetch User
+router.get('/fetchUser', authenticateToken, fetchUserController);
+
 // Add a product
 router.post('/createProduit', createProduit);
 
-//delete product
+// Delete product
 router.delete('/deleteProduit/:id', deleteProduct);
 
-//update product
+// Update product
 router.put('/updateProduit/:id', updateProduct);
 
 // Get all products
@@ -38,6 +45,9 @@ router.get('/getProduits', getProduits);
 
 // Update user
 router.put('/updateUser', updateUser);
+
+// Cart routes
+
 
 // Forgot password route
 router.post('/forgotpassword', async (req, res) => {
@@ -111,5 +121,14 @@ router.post('/reset-password/:token', async (req, res) => {
         res.status(500).json({ success: false, message: 'Erreur lors de la réinitialisation du mot de passe' });
     }
 });
+
+// Route pour ajouter un produit au panier
+router.post('/addToCart', addToCart);
+
+// Route pour supprimer un produit du panier
+router.post('/cartRemove', removeFromCart);
+
+// Route pour récupérer le panier d'un utilisateur
+router.post('/getCart', getCart); 
 
 export default router;

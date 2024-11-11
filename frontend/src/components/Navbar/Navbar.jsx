@@ -12,6 +12,10 @@ const Navbar = ({ user }) => {
     navigate(route);
   };
 
+  const handleCartClick = () => {
+    navigate('/cart');
+  };
+
   const handleSelectChange = (event) => {
     const selectedOption = event.target.value;
     switch (selectedOption) {
@@ -69,14 +73,14 @@ const Navbar = ({ user }) => {
 
       {/* Right side of Navbar */}
       <div className="navbar-right">
-      <select className="dropdown-select" onChange={handleSelectChange}>
+        <select className="dropdown-select" onChange={handleSelectChange}>
           <option value="">Select an option</option>
           <option value="Déposer un produit">Déposer un produit</option>
           <option value="Afficher liste des produits">Afficher liste des produits</option>
           <option value="Voir les commandes">Voir les commandes</option>
         </select>
         <img src={images.iconSearch} className="icon" alt="Search Icon" />
-        <div className="navbar-search-icon">
+        <div className="navbar-search-icon" onClick={handleCartClick}>
           <img src={images.iconBasket} className="icon" alt="Basket Icon" />
           <div className="dot"></div>
         </div>

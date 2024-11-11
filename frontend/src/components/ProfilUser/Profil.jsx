@@ -4,44 +4,49 @@ import './Profil.css';
 import Footer from '../footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
+
 const ProfilUser = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const location = useLocation();
   const navigate = useNavigate();
   
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem('token'); // Get token from local storage
-  
-      try {
-          const response = await axios.get('/api/v1/auth/fetchUser', {
-              headers: {
-                  'Authorization': `Bearer ${token}`, // Include token in the Authorization header
-              },
-          });
-  
-          if (response.data.success) {
-              console.log('token 5',response.data.user); // User details
-              // You can update your state or context with user details
-          }
-      } catch (error) {
-          console.error('Error fetching user data:', error);
-          // Handle error (show toast, etc.)
+      const token = localStorage.getItem('token'); 
+      if (!token) {
+        navigate('/login'); // Redirige si aucun token n'est disponible
+        return;
       }
-  };
+      
+      try {
+        const response = await axios.get('/api/v1/auth/fetchUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Inclure le token dans l'en-tête Authorization
+          },
+        });
+  
+        if (response.data.success) {
+          setUser(response.data.user); // Mettre à jour les informations utilisateur
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Gérer l'erreur (par exemple, afficher une notification)
+      } finally {
+        setLoading(false); // Arrêter le chargement, même en cas d'erreur
+      }
+    };
   
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
-  // Retrieve user data from local storage if not fetched from API
+  // Charger les données utilisateur à partir du stockage local si elles ne sont pas déjà disponibles
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       setUser(storedUser);
     }
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <div className="profil-container">
@@ -49,7 +54,7 @@ const ProfilUser = () => {
       <h2>Mon Profil</h2>
 
       {loading ? (
-        <p>Loading...</p>
+        <p>Chargement...</p>
       ) : user ? (
         <div className="profil-content">
           <div className="profil-image-container">
