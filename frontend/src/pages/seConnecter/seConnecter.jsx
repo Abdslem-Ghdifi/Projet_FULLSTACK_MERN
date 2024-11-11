@@ -29,7 +29,7 @@ const SeConnecter = () => {
         const token = response.data.token; // Assuming the token is sent in the response
 console.log(token)
         // Store token in local storage
-       // localStorage.setItem('token', token);
+       localStorage.setItem('token', token);
         
         // Store user data in local storage
         localStorage.setItem("user", JSON.stringify(response.data.user));
