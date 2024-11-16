@@ -103,10 +103,6 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-
-
-
-
 // Fonction pour récupérer le panier d'un utilisateur
 export const getCart = async (req, res) => {
   const { userId } = req.body;

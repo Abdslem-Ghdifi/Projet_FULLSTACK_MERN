@@ -98,30 +98,36 @@ export const updateProduct = async (req, res) => {
   }
 };
 export const getProduitsByVendeur = async (req, res) => {
-  const vendeurId = req.params.vendeurId;
+  const { vendeurId } = req.params;
 
-  // Check if the ID is valid
   if (!mongoose.Types.ObjectId.isValid(vendeurId)) {
-    return res.status(400).json({ message: 'Invalid vendeur ID' });
+    return res.status(400).json({ 
+      success: false,
+      message: 'Invalid vendeur ID'
+    });
   }
 
   try {
-    // Find products by vendeur ID
-    const produits = await Produit.find({ vendeur: vendeurId });
-
-    // If no products are found
-    if (produits.length === 0) {
-      return res.status(404).json({ message: 'No products found for this vendeur' });
+    const produits = await Produit.find({ vendeur: vendeurId }).select('nom prix categorie stock');
+    
+    if (!produits.length) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'No products found for this vendeur' 
+      });
     }
 
-    // Return the products
-    res.status(200).json({ success: true, produits });
+    res.status(200).json({ 
+      success: true,
+      produits 
+    });
   } catch (error) {
-    res.status(500).json({
+    res.status(500).json({ 
       success: false,
-      message: 'Erreur lors de la récupération des produits pour ce vendeur',
-      error: error.message,
+      message: 'Error retrieving products for this vendeur',
+      error: error.message
     });
   }
 };
+
   

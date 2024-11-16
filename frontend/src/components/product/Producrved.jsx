@@ -3,35 +3,79 @@ import ProductCard from './ProductCard';
 import axios from 'axios'; 
 import Navbar from '../Navbar/Navbar';
 import Footer from '../../components/footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
-const Producrved = ({ user }) => {
+const Producrved = () => {
+  const [user, setUser ] = useState([]);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Fetch products from backend
-  useEffect((user) => {
-    console.log('poduct',user)
-    const fetchProducts = async () => {
-      if (!user || !user._id) { // Check if user or user._id is undefined
-        console.error("User is not defined");
-        return; // Exit if user is not defined
+  useEffect(() => {
+    
+    const fetchUserData = async () => {
+  
+      const token = localStorage.getItem('token'); 
+     
+    
+      if (!token) {
+        navigate('/login'); 
+        return;
       }
-      
+
       try {
-        // Call the API to get products by vendor
+        const response = await axios.get('/api/v1/auth/fetchUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user); 
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  
+  }, [navigate, user, setUser, loading]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (!user || !user._id) {
+        console.error("User is not defined");
+        console.log('ena mawjoud1')
+        return;
+      }
+      console.log(`${user._id}`)
+      try {
         const response = await axios.get(`/api/v1/auth/getProduitsByVendeur/${user._id}`);
+        console.log(`${user._id}`)
         const data = response.data; 
         console.log("Fetched Products:", data);
-        setProducts(data.produits); 
+
+        if (Array.isArray(data.produits)) {
+          setProducts(data.produits); 
+        
+        } else {
+          console.error("Unexpected data format:", data);
+          setProducts([]);
+        }
       } catch (error) {
         console.error("Failed to fetch products:", error);
       }
     };
 
-    fetchProducts();
-  }, [user]); // Dependency array includes user to refetch if it changes
+    if (user && user._id) {
+      fetchProducts();
+    }
+  }, [user]);
 
-  // Function to add product to cart
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
     console.log("Cart updated:", cart);
@@ -43,7 +87,7 @@ const Producrved = ({ user }) => {
       <div className="row">
         {products.length > 0 ? (
           products.map((produit) => (
-            <div className="col-md-4" key={produit.id_p}>
+            <div className="col-md-4" key={produit.id_p || produit._id}>
               <ProductCard produit={produit} addToCart={addToCart} />
             </div>
           ))
