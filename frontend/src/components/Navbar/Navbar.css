@@ -8,6 +8,16 @@
   background-color: #ffffff; /* Background color of the navbar */
 }
 
+.navbar-search-input {
+  margin-left: 10px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+
 /* Logo */
 .logo {
   height: 50px; /* Taille du logo */

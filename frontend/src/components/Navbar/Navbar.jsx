@@ -3,13 +3,26 @@ import './Navbar.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, onSearch }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState('Accueil');
+  const [showSearch, setShowSearch] = useState(false); // State to toggle search input visibility
+  const [searchTerm, setSearchTerm] = useState(''); // State to store search term
+
 
   const handleNavigation = (route, menuName) => {
     setMenu(menuName);
     navigate(route);
+  };
+  // Function to handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value); // Update search term
+    onSearch(e.target.value); // Pass the search term to parent (UserAcceuil)
+  };
+
+  // Function to toggle the search input visibility
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
   };
 
   const handleCartClick = () => {
@@ -79,7 +92,16 @@ const Navbar = ({ user }) => {
           <option value="Afficher liste des produits">Afficher liste des produits</option>
           <option value="Voir les commandes">Voir les commandes</option>
         </select>
-        <img src={images.iconSearch} className="icon" alt="Search Icon" />
+        <img src={images.iconSearch} className="icon" alt="Search Icon"  onClick={toggleSearch} />
+        {showSearch && (
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search products..."
+            className="navbar-search-input"
+          />
+        )}
         <div className="navbar-search-icon" onClick={handleCartClick}>
           <img src={images.iconBasket} className="icon" alt="Basket Icon" />
           <div className="dot"></div>

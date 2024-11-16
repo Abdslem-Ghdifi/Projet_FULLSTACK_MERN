@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Products = () => {
+const Products = ({ searchTerm }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,6 +51,11 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
+
+   // Filter products based on search term
+   const filteredProducts = products.filter(product => 
+    product.nom.toLowerCase().includes(searchTerm.toLowerCase()) // Case insensitive search
+  );
 
   // Ajouter un produit au panier
   const addToCart = (product) => {
@@ -129,8 +134,8 @@ const Products = () => {
   return (
     <div className="products-page container">
       <div className="row">
-        {products.length > 0 ? (
-          products.map((produit) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((produit) => (
             <div className="col-md-4" key={produit._id}> {/* Utilisez '_id' au lieu de 'id_p' */}
               <ProductCard produit={produit} addToCart={addToCart} removeFromCart={removeFromCart} />
             </div>
