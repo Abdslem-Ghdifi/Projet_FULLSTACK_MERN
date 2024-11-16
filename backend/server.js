@@ -7,7 +7,7 @@ import AuthRoute from './routes/AuthRoute.js';
 import cors from 'cors';
 import cloudinary from 'cloudinary';
 import multer from 'multer';
-
+import productRoutes from './routes/productRoutes.js '
 // Configure environment variables
 dotenv.config();
 
@@ -34,7 +34,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/v1/auth', AuthRoute);
-
+app.use('/api/v1/auth', productRoutes);
 // Test route
 app.get('/', (req, res) => {
     res.send('<center><h1>Welcome to Green Store</h1></center>');

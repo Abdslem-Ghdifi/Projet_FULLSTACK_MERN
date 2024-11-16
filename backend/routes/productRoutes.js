@@ -1,7 +1,7 @@
 // productRoutes.js
 import express from 'express';
-import Produit from './models/produitModel.js';  // This matches your 'produit' collection
-import getProduitsByVendeur from '../controllers/ProduitController.js'
+import Produit from '../models/ProduitModel.js';  // This matches your 'produit' collection
+import {getProduitsByVendeur }from '../controllers/ProduitController.js'
 const router = express.Router();
 
 // Route to get all products from 'produit' collection
