@@ -1,58 +1,47 @@
-#modifier-profil {
-    margin: 0 auto;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #f4f4f4;
+body {
+    background: url('../../assets/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  .card {
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    text-align: center;
-    color: #1d7130;
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif; /* Utilisation d'une police plus moderne */
-    font-weight: bold; /* Épaissir le titre */
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse; /* Supprime les espaces entre les cellules */
-}
-
-td {
-    padding: 10px; /* Ajouter un espacement autour des cellules */
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .form-control {
+    height: 50px;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-    transition: border-color 0.3s ease; /* Transition pour la couleur de la bordure */
-}
-
-input:focus {
-    border-color: #1d7130; /* Change la couleur de la bordure au focus */
-    outline: none; /* Supprime le contour par défaut */
-}
-
-#btc {
-    background-color: #1d7130;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Ajout de la transition de transformation */
-}
-
-#btc:hover {
-    background-color: #155b24;
-    transform: scale(1.05); /* Ajoute un léger effet de zoom au survol */
-}
-
-input[disabled] {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
+  }
+  
+  .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0px 0px 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  .btn {
+    height: 45px;
+    border-radius: 8px;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+   
+  

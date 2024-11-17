@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'; 
+import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
+import Footer from '../footer/Footer';
+
 
 const ModifierProfil = () => {
   const location = useLocation();
-  const { user } = location.state || {}; // Récupérer les informations utilisateur
+  const { user } = location.state || {};
   const [nom, setNom] = useState(user.nom || '');
   const [prenom, setPrenom] = useState(user.prenom || '');
   const [email, setEmail] = useState(user.email || '');
@@ -18,10 +20,7 @@ const ModifierProfil = () => {
   const [adresse, setAdresse] = useState(user.adresse || '');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-const returnA =()=>{
-    navigate('/userAcceuil')
-}
-  // Gestion de la soumission du formulaire
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -34,7 +33,6 @@ const returnA =()=>{
 
       if (response.data.success) {
         toast.success('Profil mis à jour avec succès');
-        // Navigation vers la page d'accueil avec les nouvelles informations utilisateur
         navigate('/userAcceuil', { state: { user: response.data.user } });
       } else {
         toast.error(response.data.message || 'Erreur lors de la mise à jour');
@@ -54,117 +52,115 @@ const returnA =()=>{
 
   return (
     <div>
-    <Navbar></Navbar>
-    <div id='modifier-profil'>
+      <Navbar />
+      <div id="modifier-profil" className="container mt-2 mb-2">
+        <div className="card shadow">
+          <div className="card-header bg-success text-white text-center">
+            <h3>Modifier Profil</h3>
+          </div>
+          <div >
+            <form onSubmit={handleSubmit}>
+              <div className="row mb-2">
+                <div className="col-md-4">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Nom"
+                    value={nom}
+                    onChange={(e) => setNom(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-4">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Prénom"
+                    value={prenom}
+                    onChange={(e) => setPrenom(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-4">
+                  <input
+                    type="text"
+                    className="form-control "
+                    placeholder="CIN"
+                    value={cin}
+                    onChange={(e) => setCin(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-md-12">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                
+              </div>
+              <div className="row mb-2">
+              
+                <div className="col-md-6">
+                  <input
+                    type="date"
+                    className="form-control"
+                    placeholder="Date de Naissance"
+                    value={dateNais}
+                    onChange={(e) => setDateNais(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="tel"
+                    className="form-control"
+                    placeholder="Téléphone"
+                    value={tel}
+                    onChange={(e) => setTel(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="row mb-2">
+                <div className="col-md-12">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Adresse"
+                    value={adresse}
+                    onChange={(e) => setAdresse(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <button
+                  type="submit" className="btn btn-success h-50 w-100 py-2" disabled={loading}>
+                  {loading ? 'En cours...' : 'Mettre à jour'}
+                </button>
+                <button
+                  type="button" className="btn btn-success h-50 w-100 py-2" onClick={() => navigate('/userAcceuil')}
+                >
+                  Retour
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
+      <div><Footer /></div>
+      
 
+    </div>
     
-      <h2>Modifier Profil</h2>
-      <form onSubmit={handleSubmit}>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Nom"
-                  value={nom}
-                  onChange={(e) => setNom(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Prénom"
-                  value={prenom}
-                  onChange={(e) => setPrenom(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  placeholder="CIN"
-                  value={cin}
-                  onChange={(e) => setCin(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="date"
-                  placeholder="Date de Naissance"
-                  value={dateNais}
-                  onChange={(e) => setDateNais(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="tel"
-                  placeholder="Téléphone"
-                  value={tel}
-                  onChange={(e) => setTel(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Adresse"
-                  value={adresse}
-                  onChange={(e) => setAdresse(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="submit"
-                  value={loading ? 'En cours...' : 'Mettre à jour'}
-                  id='btc'
-                  disabled={loading}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="submit"
-                  value="Return"
-                  id='btc'
-                  onClick={returnA()}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <ToastContainer />
-      </form>
-    </div>
-    </div>
   );
 };
 

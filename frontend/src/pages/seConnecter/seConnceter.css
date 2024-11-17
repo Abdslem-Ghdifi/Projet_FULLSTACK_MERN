@@ -1,92 +1,86 @@
 #seconnceter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* Arrière-plan clair */
+  height: 100vh;
+  background: url('../../assets/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 1200px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.text-container {
+  flex: 1;
+  padding-right: 20px;
+}
+.text-container h1,
+.text-container p {
+  margin-bottom: 20px;
+}
+.form-container {
+  flex: 1;
+  max-width: 500px;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  width: 100%; 
+  max-width: 500px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
 
-  }
+form input[type="email"],
+form input[type="password"],
+form .btn-success {
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%; 
+  max-width: 400px; 
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+  height: 50px; 
+}
 
-  form {
-    background-color: #ffffff; /* Fond du formulaire blanc */
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  table {
-    width: 100%;
-  }
-  
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: all 0.3s ease; /* Transition pour le hover */
-  }
-  
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    border-color: #4CAF50; /* Couleur de la bordure lors du focus */
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Lueur verte */
-    outline: none; /* Supprimer la bordure par défaut */
-  }
-  
-  input[type="email"]::placeholder,
-  input[type="password"]::placeholder {
-    color: #999;
-  }
-  
-  input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: #4CAF50; /* Bouton vert */
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Transition pour le hover */
-  }
-  
-  input[type="submit"]:hover {
-    background-color: #45a049; /* Couleur lors du hover */
-  }
-  
-  #btc[disabled] {
-    background-color: #ccc; /* Désactiver bouton gris */
-    cursor: not-allowed;
-  }
-  
-  /* Animation hover des champs de texte */
-  input[type="email"]:hover,
-  input[type="password"]:hover {
-    border-color: #4CAF50;
-  }
-  
-  input[type="email"]:hover::placeholder,
-  input[type="password"]:hover::placeholder {
-    color: #555;
-  }
-  
-  /* Toastification */
-  .Toastify__toast--success {
-    background-color: #4CAF50; /* Toast de succès en vert */
-  }
-  
-  .Toastify__toast--error {
-    background-color: #f44336; /* Toast d'erreur en rouge */
-  }
-  
-  @media (max-width: 500px) {
-    form {
-      padding: 20px;
-    }
-  }
-  
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  border-color: #28a745;
+  outline: none;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+form .btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form .btn-success:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.text-success {
+  color: #28a745;
+  font-weight: bold;
+}
+.text-muted {
+  font-size: 14px;
+}

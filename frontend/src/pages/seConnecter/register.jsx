@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios'; 
-import './register.css';  // Assurez-vous d'ajouter votre fichier CSS
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./register.css"; 
 
 const Register = () => {
-  const [cin, setCin] = useState('');
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [dateNais, setDateNais] = useState('');
-  const [tel, setTel] = useState('');
-  const [email, setEmail] = useState('');
-  const [motdepasse, setMotdepasse] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [imageProfil, setImageProfil] = useState(''); // État pour l'image de profil (optionnel)
+  const [cin, setCin] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [dateNais, setDateNais] = useState("");
+  const [tel, setTel] = useState("");
+  const [email, setEmail] = useState("");
+  const [motdepasse, setMotdepasse] = useState("");
+  const [adresse, setAdresse] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Création de l'objet utilisateur à envoyer
     const userData = {
       cin,
       nom,
@@ -34,119 +30,139 @@ const Register = () => {
       email,
       motdepasse,
       adresse,
-      imageProfil: imageProfil ? imageProfil : '',  // Image par défaut si aucune image n'est sélectionnée
     };
 
     try {
       const response = await axios.post(`/api/v1/auth/RegisterUser`, userData, {
         headers: {
-          'Content-Type': 'application/json',  // Spécifier le type JSON
+          "Content-Type": "application/json",
         },
       });
-      console.log(response.data)
       if (response.data.success) {
-       navigate('/login');  // Rediriger vers la page de connexion après l'inscription
+        navigate("/login");
       } else {
-        toast.error(response.data.message || 'Erreur lors de l\'inscription');
+        toast.error(response.data.message || "Error during registration");
       }
     } catch (error) {
-      console.error('Erreur lors de l\'inscription:', error);
-      toast.error('Erreur lors de la requête');
+      toast.error("Request error. Please try again.");
     } finally {
       setLoading(false);
     }
   };
-  
-  
-
-  const  handleImg= (e)=>{
-      const file = e.target.files[0]
-      setLoading(true)
-      imageUpload(file)
-                .then((url) => {
-                    toast.dismiss();
-                    toast.success("Image uploaded successfully.");
-                    setImageProfil(url);
-                    console.log(url)
-                })
-                .catch((err) => {
-                    toast.dismiss();
-                    toast.error("Error while uploading your image...");
-                  
-                }).finally(()=>{
-                  setLoading(false)
-                })
-                
-  }
 
   return (
-    <div id='register'>
-      <h2>S'inscrire</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>CIN:</label>
-          <input type="number" value={cin} onChange={(e) => setCin(e.target.value)} required />
+    <div className="register-page">
+      <div className="register-container">
+        <div className="register-text">
+          <h1>Join GreenStore Marketplace</h1>
+          <p>
+          Inscrivez-vous aujourd'hui pour faire partie du meilleur
+           marché en ligne de produits agricoles durables et innovants.
+           Connectez-vous avec nous pour donner vie à vos projets agricoles !
+          </p>
         </div>
-        <div>
-          <label>Nom:</label>
-          <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
+        <div className="register-form-container">
+          <form onSubmit={handleSubmit} className="register-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label>CIN</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={cin}
+                  onChange={(e) => setCin(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Nom</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Prénom</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Date de Naissance</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  value={dateNais}
+                  onChange={(e) => setDateNais(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Téléphone</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={tel}
+                  onChange={(e) => setTel(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Mot de Passe</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={motdepasse}
+                  onChange={(e) => setMotdepasse(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Adresse</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={adresse}
+                  onChange={(e) => setAdresse(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary register-btn"
+              disabled={loading}
+            >
+              {loading ? "Creating Account..." : "S'inscrire"}
+            </button>
+          </form>
         </div>
-        <div>
-          <label>Prénom:</label>
-          <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} required />
-        </div>
-        <div>
-          <label>Date de Naissance:</label>
-          <input type="date" value={dateNais} onChange={(e) => setDateNais(e.target.value)} required />
-        </div>
-        <div>
-          <label>Téléphone:</label>
-          <input type="number" value={tel} onChange={(e) => setTel(e.target.value)} required />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Mot de Passe:</label>
-          <input type="password" value={motdepasse} onChange={(e) => setMotdepasse(e.target.value)} required />
-        </div>
-        <div>
-          <label>Adresse:</label>
-          <input type="text" value={adresse} onChange={(e) => setAdresse(e.target.value)} required />
-        </div>
-        <div>
-          <label>Image de Profil:</label>
-          <input
-            type="file"
-            placeholder="URL de l'image"
-          
-            onChange={handleImg} // Utiliser un champ texte pour l'URL de l'image
-          />
-        </div>
-        <div>
-          <input type="submit" value={loading ? 'Inscription...' : 'S\'inscrire'} disabled={loading} />
-        </div>
-      </form>
+      </div>
       <ToastContainer />
     </div>
   );
 };
-
 export default Register;
-const imageUpload = async (file ) => {
-  const formData = new FormData();
-  if (file) {
-      formData.append("image", file);
-  }
-  try {
-      const response = await axios.post("http://localhost:8084/api/v1/auth/upload", formData, {
-          headers: {
-              "Content-Type": "multipart/form-data",
-          },
-      });
-      return response.data.secure_url;
-  } catch (error) {
-      toast.error("An error occurred during image upload");
-  }
-};

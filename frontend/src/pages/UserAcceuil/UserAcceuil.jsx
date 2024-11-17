@@ -15,7 +15,7 @@ const UserAcceuil = () => {
   };
 
   const location = useLocation();
-  const { user } = location.state || {}; // Get user information from the location state
+  const { user } = location.state || {};
 
   return (
     <>
