@@ -24,7 +24,14 @@ const SeConnecter = () => {
         toast.success(response.data.message);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        navigate('/userAcceuil');
+        const role = response.data.role;
+        if (role === "admin") {
+          navigate('/adminDashboard'); 
+        } else if (role === "user") {
+          navigate('/userAcceuil'); 
+        } else {
+          toast.error('Role non reconnu. Contactez le support.');
+        }
       } else {
         toast.error(response.data.message || 'Erreur lors de la connexion');
       }

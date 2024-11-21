@@ -7,7 +7,7 @@ import JWT from 'jsonwebtoken';
 
 export const registerController = async (req, res) => {
     try {
-        const { cin, nom, prenom, dateNais, tel, email, motdepasse, adresse, imageProfil } = req.body;
+        const { cin, nom, prenom, dateNais, tel, email, motdepasse, adresse, imageProfil, role } = req.body;
 
         // Validation des champs requis
         if (!cin) return res.send({ error: 'cin est obligatoire !' });
@@ -41,6 +41,7 @@ export const registerController = async (req, res) => {
             email,
             motdepasse: hashed,
             adresse,
+            role: req.body.role || "user",
             imageProfil 
         }).save();
 
@@ -98,6 +99,7 @@ export const loginController = async (req, res) => {
         res.status(201).send({
             success: true,
             message: 'Login successfully',
+            role: user.role,
             user: {
                 cin: user.cin,
                 nom: user.nom,

@@ -5,6 +5,7 @@ import {
     authenticateToken,
     fetchUserController 
 } from '../controllers/AuthController.js';
+import { createAdminController } from '../controllers/AdminController.js'; // Import the createAdminController
 import { requireSignIn } from '../middlewares/authMiddleware.js';
 import { createProduit, getProduits, deleteProduct, updateProduct } from '../controllers/ProduitController.js';
 import { updateUser } from '../controllers/UpdateUser.js';
@@ -19,6 +20,8 @@ import { addToCart, removeFromCart, getCart } from '../controllers/CartControlle
 const router = express.Router();
 
 // Routes
+// Register Admin
+router.post('/create-admin', createAdminController);
 // Register User
 router.post('/RegisterUser', registerController);
 

@@ -12,6 +12,8 @@ import DeposerArticle from './components/Article/DeposerArticle';
 import Profil from './components/ProfilUser/Profil';
 import Producrved from './components/product/Producrved';
 import Cart from './components/Cart/Cart';
+import AdminDashboard from './pages/AdminDashboard';
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />    
         <Route path='/profil' element={<Profil />}></Route>
         <Route path='/Producrved' element={<Producrved />}></Route>
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

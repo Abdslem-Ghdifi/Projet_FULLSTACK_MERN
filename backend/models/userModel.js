@@ -38,10 +38,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: { type: String, default: "user" },
     imageProfil: {  
         type: String, 
         default: '../../profil.jpg'   
     },
+    role: { type: String, default: "user" },
     //for password reset functionality
     resetPasswordToken: {
         type: String
