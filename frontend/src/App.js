@@ -13,7 +13,7 @@ import Profil from './components/ProfilUser/Profil';
 import Producrved from './components/product/Producrved';
 import Cart from './components/Cart/Cart';
 import AdminDashboard from './pages/AdminDashboard';
-
+import EditProduct from './components/product/EditProduct'
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
         <Route path='/profil' element={<Profil />}></Route>
         <Route path='/Producrved' element={<Producrved />}></Route>
         <Route path="/adminDashboard" element={<AdminDashboard />} />
+        <Route path="/EditProduct" element={<EditProduct />} />
       </Routes>
     </Router>
   );

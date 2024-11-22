@@ -108,7 +108,7 @@ export const getProduitsByVendeur = async (req, res) => {
   }
 
   try {
-    const produits = await Produit.find({ vendeur: vendeurId }).select('nom prix categorie stock');
+    const produits = await Produit.find({ vendeur: vendeurId })
     
     if (!produits.length) {
       return res.status(404).json({ 
