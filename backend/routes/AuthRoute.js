@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import { 
     registerController,
     loginController,
@@ -15,7 +16,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js'; // Import your User model
 import { addToCart, removeFromCart, getCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
 
-
+const upload = multer();
 // Router object
 const router = express.Router();
 
@@ -41,7 +42,7 @@ router.post('/createProduit', createProduit);
 router.delete('/deleteProduit/:id', deleteProduct);
 
 // Update product
-router.put('/updateProduit/:id', updateProduct);
+router.put('/updateProduit/:id', upload.none(), updateProduct);
 
 // Get all products
 router.get('/getProduits', getProduits);
