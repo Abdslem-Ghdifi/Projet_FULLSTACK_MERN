@@ -13,17 +13,15 @@ import { updateUser } from '../controllers/UpdateUser.js';
 import crypto from 'crypto'; // For generating reset token
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcryptjs';
-<<<<<<< HEAD
- 
+
 import { addToCart, removeFromCart, getCart ,emptyCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
 import { createCommande, getCommandes } from '../controllers/CommandeController.js';
 
-=======
+
 import User from '../models/userModel.js'; // Import your User model
-import { addToCart, removeFromCart, getCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
 
 const upload = multer();
->>>>>>> 259e065ed8d8b366af4780dc22159fe9685f74a1
+
 // Router object
 const router = express.Router();
 

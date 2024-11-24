@@ -3,96 +3,93 @@ import Commande from '../models/CommandeModel.js'; // Assurez-vous que le modèl
 import User from '../models/userModel.js'; // Assurez-vous que le modèle User est correctement importé
 import Produit from '../models/ProduitModel.js'; // Assurez-vous que le modèle Produit est correctement importé
 
+
 export const getCommandes = async (req, res) => {
-    try {
-        const { userId } = req.body; // L'ID de l'utilisateur est maintenant dans le body
+  try {
+    const { userId } = req.body; // Récupérer l'ID de l'utilisateur dans le corps de la requête
 
-        console.log(userId);
+    // Chercher les commandes de l'acheteur
+    const commandes = await Commande.find({ acheteurId: userId })
+      .populate('vendeurId', 'prenom nom')  // Peupler les informations du vendeur
+      .populate('produits.produitId', 'nom prix image');  // Peupler les informations des produits
 
-        // Chercher les commandes de l'acheteur
-        const commandes = await Commande.find({ acheteurId: userId });
-
-        // Si aucune commande n'est trouvée, retourner une erreur
-        if (!commandes || commandes.length === 0) {
-            return res.status(404).json({ success: false, message: 'Aucune commande trouvée' });
-        }
-
-        // Peupler les informations des vendeurs et des produits dans les commandes
-        const commandesAvecDetails = await Promise.all(commandes.map(async (commande) => {
-            const commandesDetails = await Promise.all(commande.commandes.map(async (detail) => {
-                // Peupler les informations du vendeur
-                const vendeur = await User.findById(detail.vendeurId).select('prenom nom');
-                
-                // Peupler les informations du produit
-                const produit = await Produit.findById(detail.produits.produitId).select('nom prix image');
-                
-                return {
-                    ...detail.toObject(), // Les détails originaux de la commande
-                    vendeur: vendeur ? { prenom: vendeur.prenom, nom: vendeur.nom } : null,
-                    produit: produit ? { nom: produit.nom, prix: produit.prix, image: produit.image } : null
-                };
-            }));
-
-            return {
-                ...commande.toObject(),
-                commandes: commandesDetails
-            };
-        }));
-
-        return res.json({
-            success: true,
-            commandes: commandesAvecDetails,
-        });
-
-    } catch (error) {
-        console.error('Erreur lors de la récupération des commandes:', error);
-        return res.status(500).json({ success: false, message: 'Erreur serveur' });
+    // Si aucune commande n'est trouvée, retourner une erreur
+    if (!commandes || commandes.length === 0) {
+      return res.status(404).json({ success: false, message: 'Aucune commande trouvée' });
     }
-};
 
+    // Retourner les commandes avec les informations détaillées
+    return res.json({
+      success: true,
+      commandes,
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la récupération des commandes:', error);
+    return res.status(500).json({ success: false, message: 'Erreur serveur' });
+  }
+};
 
 export const createCommande = async (req, res) => {
   try {
-    const { acheteurId, produits } = req.body;
+    const { acheteurId, command } = req.body;  // 'command' et non 'commandproduit'
+    console.log("Les données reçues : ", req.body);  // Tester la requête complète
 
-    // Créer une structure pour organiser les produits par vendeur
-    const commandesParVendeur = {};
-
-    // Organiser les produits par vendeur
-    produits.forEach((item) => {
-      const vendeurId = item.produit.vendeur;
-
-      if (!commandesParVendeur[vendeurId]) {
-        commandesParVendeur[vendeurId] = {
-          vendeurId: vendeurId,
-          produits: [],
-          total: 0,
-        };
-      }
-
-      commandesParVendeur[vendeurId].produits.push({
-        produitId: item.produit._id,
-        quantite: item.quantite,
+    // Validation des données reçues
+    if (!acheteurId || !command || command.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Les informations de commande sont incomplètes.',
       });
-      commandesParVendeur[vendeurId].total += item.produit.prix * item.quantite;
+    }
+
+    // Tester si 'acheteurId' et 'command' existent
+    console.log('Acheteur ID :', acheteurId);
+    console.log('Commandes reçues :', command);
+
+    // Préparation des commandes par vendeur
+    const commandes = command.map((commande) => {
+      // Tester la structure de chaque commande
+      console.log('Vendeur ID :', commande.vendeurId);
+      console.log('Produits dans la commande :', commande.produit);
+
+      return {
+        acheteurId,
+        vendeurId: commande.vendeurId,
+        produits: commande.produit.map((produit) => {  
+          // Tester les produits à l'intérieur de chaque commande
+          console.log('Produit dans la commande :', produit);
+
+          return {
+            produitId: produit.produitId,
+            quantite: produit.quantite,
+          };
+        }),
+        total: commande.total,
+        dateCommande: new Date(),
+        status: 'En attente',
+      };
     });
 
-    // Créer une commande avec des produits regroupés par vendeur
-    const commande = new Commande({
-      acheteurId: acheteurId,
-      commandes: Object.values(commandesParVendeur),
-      total: produits.reduce((acc, item) => acc + item.produit.prix * item.quantite, 0),
-    });
+    // Enregistrer chaque commande dans la base de données
+    const savedCommandes = [];
+    for (const commande of commandes) {
+      console.log('Enregistrement de la commande :', commande);  // Tester chaque commande avant de l'enregistrer
 
-    const savedCommande = await commande.save();
+      const savedCommande = await Commande.create(commande);
+      savedCommandes.push(savedCommande);
+    }
 
-    return res.json({
+    res.status(201).json({
       success: true,
-      message: 'Commande créée avec succès',
-      commande: savedCommande,
+      message: 'Commandes créées avec succès.',
+      commandes: savedCommandes,
     });
   } catch (error) {
-    console.error('Erreur lors de la création de la commande:', error);
-    return res.status(500).json({ success: false, message: 'Erreur serveur' });
+    console.error('Erreur lors de la création des commandes :', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur interne du serveur lors de la création des commandes.',
+    });
   }
 };

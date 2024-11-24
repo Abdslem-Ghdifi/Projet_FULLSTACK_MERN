@@ -1,72 +1,116 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../footer/Footer';
+import './Commandes.css';
 
-const Commandes = ({ userId }) => {
+const Commande = () => {
   const [commandes, setCommandes] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fonction pour récupérer les commandes de l'utilisateur
-    const fetchCommandes = async () => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
       try {
-        // Envoi de la requête POST à l'API
-        const response = await axios.post('http://localhost:8084/api/v1/auth/getCommandes', { userId });
-        setCommandes(response.data.commandes);
-        setLoading(false);
-      } catch (err) {
-        console.error('Erreur lors de la récupération des commandes:', err);
-        setError('Erreur lors de la récupération des commandes');
+        const response = await axios.get('/api/v1/auth/fetchUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user);
+        } else {
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        navigate('/login');
+      } finally {
         setLoading(false);
       }
     };
 
-    // Appeler la fonction de récupération des commandes
+    fetchUserData();
+  }, [navigate]);
+
+  useEffect(() => {
+    const fetchCommandes = async () => {
+      if (!user) return;
+
+      try {
+        const response = await axios.post(
+          'http://localhost:8084/api/v1/auth/getCommandes',
+          { userId: user._id },
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.data.success) {
+          setCommandes(response.data.commandes);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des commandes', error);
+      }
+    };
+
     fetchCommandes();
-  }, [userId]);
-
-  if (loading) {
-    return <div>Chargement...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  }, [user]);
 
   return (
-    <div>
+    <div className="commande-container">
+      <Navbar />
       <h2>Mes Commandes</h2>
-      {commandes.length === 0 ? (
-        <p>Aucune commande trouvée</p>
+      {loading ? (
+        <p>Chargement...</p>
+      ) : commandes.length > 0 ? (
+        <table className="commande-table">
+          <thead>
+            <tr>
+              <th>ID Commande</th>
+              
+              <th>Date</th>
+              <th>Vendeur</th>
+              <th>Total</th>
+              <th>Image</th> {/* Nouvelle colonne pour l'image */}
+            </tr>
+          </thead>
+          <tbody>
+            {commandes.map((commande) => (
+              <tr key={commande._id}>
+                <td>{commande._id}</td>
+                
+                <td>{new Date(commande.dateCommande).toLocaleDateString()}</td>
+                <td>{commande.vendeurId.prenom} {commande.vendeurId.nom}</td>
+                <td>{commande.total} €</td>
+                <td>
+                  {commande.produits && commande.produits.length > 0 ? (
+                    <img
+                      src={commande.produits[0].produitId.image[0]} // Première image du produit
+                      alt={commande.produits[0].produitId.nom}
+                      className="commande-product-image"
+                    />
+                  ) : (
+                    <span>Aucune image</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
-        commandes.map((commande) => (
-          <div key={commande._id} className="commande">
-            <h3>Commande ID: {commande._id}</h3>
-            <p>Total: {commande.total}€</p>
-            <div>
-              <h4>Détails des commandes</h4>
-              {commande.commandes.map((detail, index) => (
-                <div key={index} className="commande-detail">
-                  <p><strong>Vendeur: </strong>{detail.vendeur.prenom} {detail.vendeur.nom}</p>
-                  <div>
-                    {detail.produit ? (
-                      <div>
-                        <p><strong>Produit: </strong>{detail.produit.nom}</p>
-                        <p><strong>Prix: </strong>{detail.produit.prix}€</p>
-                        <img src={detail.produit.image} alt={detail.produit.nom} style={{ width: '100px', height: '100px' }} />
-                      </div>
-                    ) : (
-                      <p>Produit non trouvé</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))
+        <p>Aucune commande trouvée.</p>
       )}
+      <Footer />
     </div>
   );
 };
 
-export default Commandes;
+export default Commande;

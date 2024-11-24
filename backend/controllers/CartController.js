@@ -117,7 +117,7 @@ export const getCart = async (req, res) => {
     const cart = await Cart.findOne({ user: userId })
       .populate({
         path: 'produits.produit',   // Populate les produits du panier
-        select: 'nom prix image',    // Sélectionne les champs que vous souhaitez peupler
+        select: 'nom prix image vendeur ',    // Sélectionne les champs que vous souhaitez peupler
       });
 
     if (!cart) {

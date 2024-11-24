@@ -91,14 +91,15 @@ const Cart = () => {
         produits: cart.produits.map((item) => ({
           produit: item.produit._id,
           quantite: item.quantity,
+          vendeur: item.produit.vendeur,
+          prix: item.produit.prix,
         })),
       };
 
       const commandesParVendeur = {};
 
       commande.produits.forEach((item) => {
-        const vendeurId = item.produit.vendeur;
-
+        const vendeurId = item.vendeur;
         if (!vendeurId) {
           console.error('Produit sans vendeur:', item.produit);
           return;
@@ -107,23 +108,26 @@ const Cart = () => {
         if (!commandesParVendeur[vendeurId]) {
           commandesParVendeur[vendeurId] = {
             vendeurId: vendeurId,
-            produits: [],
+            produit: [],
             total: 0,
           };
         }
 
-        commandesParVendeur[vendeurId].produits.push({
-          produitId: item.produit._id,
+        commandesParVendeur[vendeurId].produit.push({
+          produitId: item.produit,
           quantite: item.quantite,
         });
-        commandesParVendeur[vendeurId].total += item.produit.prix * item.quantite;
+
+        commandesParVendeur[vendeurId].total += item.prix * item.quantite;
       });
+
+      const command = Object.values(commandesParVendeur);
 
       const response = await axios.post(
         'http://localhost:8084/api/v1/auth/createCommande',
         {
           acheteurId: userId,
-          produits: Object.values(commandesParVendeur),
+          command: command,  // Renommé pour correspondre au nom attendu par le backend
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -137,7 +141,8 @@ const Cart = () => {
         );
 
         setCart(null);
-        localStorage.setItem('invoiceData', JSON.stringify(response.data.commande));
+        console.log(" localstorage : " ,command);
+        localStorage.setItem('invoiceData', JSON.stringify(command));
 
         navigate('/facture');
       } else {
