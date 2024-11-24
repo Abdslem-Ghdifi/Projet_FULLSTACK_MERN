@@ -12,9 +12,9 @@ import { updateUser } from '../controllers/UpdateUser.js';
 import crypto from 'crypto'; // For generating reset token
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcryptjs';
-import User from '../models/userModel.js'; // Import your User model
-import { addToCart, removeFromCart, getCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
-
+ 
+import { addToCart, removeFromCart, getCart ,emptyCart } from '../controllers/CartController.js'; // Importer les fonctions du contrôleur de panier
+import { createCommande, getCommandes } from '../controllers/CommandeController.js';
 
 // Router object
 const router = express.Router();
@@ -49,8 +49,14 @@ router.get('/getProduits', getProduits);
 // Update user
 router.put('/updateUser', updateUser);
 
-// Cart routes
+// Route pour créer une commande
+router.post('/createCommande', createCommande);
 
+// Route pour récupérer les commandes
+router.post('/getCommandes', getCommandes);
+
+//route pour vider le panier
+router.post('/emptyCart',emptyCart);
 
 // Forgot password route
 router.post('/forgotpassword', async (req, res) => {

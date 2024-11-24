@@ -59,7 +59,7 @@ const Navbar = ({ user, onSearch }) => {
           Accueil
         </li>
         <li
-          onClick={() => handleNavigation('/commande', 'Commande')}
+          onClick={() => handleNavigation('/commandes', 'Commande')}
           className={menu === 'Commande' ? 'active' : ''}
         >
           Commande

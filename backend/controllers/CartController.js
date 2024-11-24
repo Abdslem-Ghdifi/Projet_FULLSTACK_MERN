@@ -131,3 +131,28 @@ export const getCart = async (req, res) => {
     res.status(500).json({ success: false, message: 'Erreur lors de la récupération du panier' });
   }
 };
+// Fonction pour vider le panier d'un utilisateur
+export const emptyCart = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    // Trouver le panier de l'utilisateur
+    const cart = await Cart.findOne({ user: userId });
+
+    if (!cart) {
+      return res.status(404).json({ success: false, message: 'Panier non trouvé' });
+    }
+
+    // Vider le panier
+    cart.produits = [];
+    cart.total = 0;
+
+    // Sauvegarder le panier vide
+    await cart.save();
+
+    res.status(200).json({ success: true, message: 'Panier vidé avec succès', cart });
+  } catch (error) {
+    console.error('Erreur lors du vidage du panier:', error);
+    res.status(500).json({ success: false, message: 'Erreur lors du vidage du panier' });
+  }
+};

@@ -80,6 +80,22 @@ h2 {
     color: #333;
 }
 
+/* Total ajusté pour plus de visibilité */
+.total-price {
+    font-size: 1.6rem; /* Augmentation de la taille */
+    font-weight: bold;
+    color:black; /* Couleur du texte */
+    background-color:beige; /* Couleur de fond */
+    padding: 10px 20px; /* Espacement autour du texte */
+    border-radius: 8px; /* Coins arrondis */
+    text-align: center; /* Centrer le texte */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: fit-content; /* Largeur qui s'adapte au contenu */
+    margin-left: auto; /* Centrer horizontalement */
+    margin-right: auto; /* Centrer horizontalement */
+}
+
 /* Bouton de confirmation de commande */
 .confirm-button {
     display: block;

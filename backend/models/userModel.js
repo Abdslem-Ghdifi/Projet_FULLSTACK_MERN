@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
-import { format } from "morgan";
-import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new mongoose.Schema({
     cin: {
         type: Number,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
     },
     nom: {
         type: String,
@@ -28,7 +26,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     motdepasse: {
         type: String,
@@ -38,19 +36,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    role: { type: String, default: "user" },
-    imageProfil: {  
-        type: String, 
-        default: '../../profil.jpg'   
+    imageProfil: {
+        type: String,
+        default: '../../profil.jpg',
     },
     role: { type: String, default: "user" },
-    //for password reset functionality
     resetPasswordToken: {
-        type: String
+        type: String,
     },
     resetPasswordExpires: {
-        type: Date
-    }
+        type: Date,
+    },
 }, { timestamps: true });
 
-export default mongoose.model('users', userSchema);
+// Vérifie si le modèle existe déjà
+const User = mongoose.models.users || mongoose.model('users', userSchema);
+
+export default User;

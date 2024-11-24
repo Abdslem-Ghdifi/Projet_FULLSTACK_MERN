@@ -14,7 +14,8 @@ import Producrved from './components/product/Producrved';
 import Cart from './components/Cart/Cart';
 import AdminDashboard from './pages/AdminDashboard';
 import EditProduct from './components/product/EditProduct'
-
+import Invoice from './components/facture/invoice';
+import Commande from './components/Commandes/Commandes.jsx';
 function App() {
   return (
     <Router>
@@ -32,6 +33,8 @@ function App() {
         <Route path='/Producrved' element={<Producrved />}></Route>
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/EditProduct" element={<EditProduct />} />
+        <Route path="/facture" element={<Invoice />} />
+        <Route path="/commandes" element={<Commande />} />
       </Routes>
     </Router>
   );
