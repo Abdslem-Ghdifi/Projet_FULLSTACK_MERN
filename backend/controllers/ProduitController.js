@@ -72,29 +72,54 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-// Update product by ID
 export const updateProduct = async (req, res) => {
   const productId = req.params.id;
 
-  // Check if the ID is valid
+  console.log('Received data:', req.body);
+
+  // Validate product ID
   if (!mongoose.Types.ObjectId.isValid(productId)) {
-    return res.status(400).json({ message: 'Invalid product ID' });
+    return res.status(400).json({ message: 'Invalid product ID format' });
   }
 
   try {
+    // Allowed fields for update
+    const allowedFields = ['nom', 'description', 'prix', 'categorie', 'stock', 'image'];
+    const updateData = {};
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    // Handle image upload if any
+    if (req.file) {
+      updateData.image = req.file.path; // Assuming Multer middleware handles file uploads
+    }
+
+    // Find and update the product
     const updatedProduct = await Produit.findByIdAndUpdate(
       productId,
-      { $set: req.body },
-      { new: true, runValidators: true } // Return the updated product and validate the data
+      { $set: updateData },
+      { new: true, runValidators: true } // Return the updated document and validate data
     );
 
     if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    res.status(200).json({ message: 'Product updated successfully', updatedProduct });
+    res.status(200).json({
+      success:true,
+      message: 'Product updated successfully',
+      product: updatedProduct,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update product', error });
+    res.status(500).json({
+      success:false,
+      message: 'An error occurred while updating the product',
+      error: error.message,
+    });
   }
 };
 export const getProduitsByVendeur = async (req, res) => {
