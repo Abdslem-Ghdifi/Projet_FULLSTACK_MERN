@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import './DeposerArticle.css'; // Assurez-vous d'ajouter votre fichier CSS
+import './DeposerArticle.css'; // Ensure to add your CSS file
 import { useNavigate } from 'react-router-dom';
 
-const AjouterProduit = () => {
-  const [nom, setNom] = useState('');
+const DeposerArticle = () => {
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [prix, setPrix] = useState('');
-  const [categorie, setCategorie] = useState('materiel');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('equipment');
   const [stock, setStock] = useState('');
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState(null); // État pour stocker l'ID utilisateur
+  const [userId, setUserId] = useState(null); // State to store user ID
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const AjouterProduit = () => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token'); 
       if (!token) {
-        navigate('/login'); // Redirige si aucun token n'est disponible
+        navigate('/login'); // Redirect if no token is available
         return;
       }
       
@@ -33,10 +33,10 @@ const AjouterProduit = () => {
         });
 
         if (response.data.success) {
-          setUserId(response.data.user._id); // Stocke l'ID utilisateur
+          setUserId(response.data.user._id); // Store user ID
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des données utilisateur :', error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -47,19 +47,19 @@ const AjouterProduit = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Création de l'objet produit à envoyer
-    const produitData = {
-      nom,
+    // Create product object to send
+    const productData = {
+      name,
       description,
-      prix,
-      categorie,
+      price,
+      category,
       stock,
-      image: image || '', // Image par défaut si aucune image n'est sélectionnée
-      vendeur: userId, // ID utilisateur comme vendeur
+      image: image || '', // Default image if none is selected
+      seller: userId, // User ID as seller
     };
 
     try {
-      const response = await axios.post('/api/v1/auth/createProduit', produitData, {
+      const response = await axios.post('/api/v1/auth/createProduct', productData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -67,13 +67,13 @@ const AjouterProduit = () => {
 
       if (response.data.success) {
         toast.success(response.data.message);
-        navigate('/userAcceuil'); // Rediriger vers la page d'accueil après l'ajout
+        navigate('/userHome'); // Redirect to home page after adding product
       } else {
-        toast.error(response.data.message || 'Erreur lors de l\'ajout du produit');
+        toast.error(response.data.message || 'Error adding product');
       }
     } catch (error) {
-      console.error('Erreur lors de l\'ajout du produit:', error);
-      toast.error('Erreur lors de la requête');
+      console.error('Error adding product:', error);
+      toast.error('Request error');
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ const AjouterProduit = () => {
       })
       .catch((err) => {
         toast.dismiss();
-        toast.error("Erreur lors du téléchargement de l'image.");
+        toast.error("Error uploading the image.");
       })
       .finally(() => {
         setLoading(false);
@@ -98,27 +98,27 @@ const AjouterProduit = () => {
   };
 
   return (
-    <div id='ajouter-produit'>
-      <h2>Ajouter un Produit</h2>
+    <div id='add-product'>
+      <h2>Add a Product</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Nom:</label>
-          <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
+          <label>Name:</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
         <div>
           <label>Description:</label>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
         </div>
         <div>
-          <label>Prix:</label>
-          <input type="number" value={prix} onChange={(e) => setPrix(e.target.value)} required />
+          <label>Price:</label>
+          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </div>
         <div>
-          <label>Catégorie:</label>
-          <select value={categorie} onChange={(e) => setCategorie(e.target.value)}>
-            <option value="materiel">Matériel</option>
-            <option value="produit pour les animaux">Produit pour les Animaux</option>
-            <option value="produit pour les plantes">Produit pour les Plantes</option>
+          <label>Category:</label>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="equipment">Equipment</option>
+            <option value="animal products">Animal Products</option>
+            <option value="plant products">Plant Products</option>
           </select>
         </div>
         <div>
@@ -134,7 +134,7 @@ const AjouterProduit = () => {
           />
         </div>
         <div>
-          <input type="submit" value={loading ? 'Ajout...' : 'Ajouter le Produit'} disabled={loading} />
+          <input type="submit" value={loading ? 'Adding...' : 'Add Product'} disabled={loading} />
         </div>
       </form>
       <ToastContainer />
@@ -142,7 +142,7 @@ const AjouterProduit = () => {
   );
 };
 
-export default AjouterProduit;
+export default DeposerArticle;
 
 const imageUpload = async (file) => {
   const formData = new FormData();
@@ -157,7 +157,7 @@ const imageUpload = async (file) => {
     });
     return response.data.secure_url;
   } catch (error) {
-    toast.error("Erreur lors du téléchargement de l'image");
+    toast.error("Error uploading the image");
     throw error;
   }
 };

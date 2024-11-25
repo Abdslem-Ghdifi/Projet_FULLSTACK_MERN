@@ -36,13 +36,13 @@ const ResetPassword = () => {
       <h2>Réinitialiser le mot de passe</h2>
       <input
         type="password"
-        placeholder="Entrez un nouveau mot de passe"
+        placeholder="Enter a new password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
       <button type="submit" disabled={loading}>
-        {loading ? 'Envoi en cours...' : 'Réinitialiser le mot de passe'}
+        {loading ? 'Envoi en cours...' : 'Reset Password'}
       </button>
       <ToastContainer />
     </form>

@@ -23,7 +23,7 @@ const SeConnecter = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+      
         const role = response.data.role;
         if (role === "admin") {
           navigate('/adminDashboard'); 
@@ -56,24 +56,50 @@ const SeConnecter = () => {
     <div id="seconnceter" className="d-flex align-items-center justify-content-center">
       <div className="content-wrapper d-flex">
         <div className="text-container">
-          <h1 className="display-4 text-success">Bienvenue au GreenStore!</h1>
-          <p className="lead">Connectez-vous pour accéder à votre compte et explorer les fonctionnalités.</p>
-          <p className="text-muted"><a href="#" onClick={handleForgotPassword} className="text-success text-decoration-none">Vous avez oublié votre mot de passe ?</a> Cliquez ici pour le récupérer.</p>
+          <h1 className="display-4 text-success">Welcome to GreenStore!</h1>
+          <p className="lead">Log in to access your account and explore the features.</p>
+          <p className="text-muted">
+            <a href="#" onClick={handleForgotPassword} className="text-success text-decoration-none">
+              Forgot your password?
+            </a>{" "}
+            Click here to recover it.
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="form-container">
-          <h2 className="text-center text-success mb-4">Se Connecter</h2>
+          <h2 className="text-center text-success mb-4">Log In</h2>
           <div className="form-group mb-3">
-            <input type="email" className="form-control" placeholder="Taper votre Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div className="form-group mb-3">
-            <input type="password" className="form-control" placeholder="Taper votre mot de passe" value={motdepasse} onChange={(e) => setMotdepasse(e.target.value)} required />
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter your password"
+              value={motdepasse}
+              onChange={(e) => setMotdepasse(e.target.value)}
+              required
+            />
           </div>
-          <button type="submit" className="btn btn-success w-50 mb-3" disabled={loading}>{loading ? 'Connecting...' : 'Se connecter'}</button>
+          <button
+            type="submit"
+            className="btn btn-success w-50 mb-3"
+            disabled={loading}
+          >
+            {loading ? "Connecting..." : "Log In"}
+          </button>
         </form>
       </div>
       <ToastContainer />
     </div>
   );
+  
 };
 
 export default SeConnecter;

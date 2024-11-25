@@ -53,19 +53,19 @@ const ModifierProfil = () => {
   return (
     <div>
       <Navbar />
-      <div id="modifier-profil" className="container mt-2 mb-2">
+      <div id="edit-profile" className="container mt-2 mb-2">
         <div className="card shadow">
           <div className="card-header bg-success text-white text-center">
-            <h3>Modifier Profil</h3>
+            <h3>Edit Profile</h3>
           </div>
-          <div >
+          <div>
             <form onSubmit={handleSubmit}>
               <div className="row mb-2">
                 <div className="col-md-4">
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Nom"
+                    placeholder="Last Name"
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
                     required
@@ -75,7 +75,7 @@ const ModifierProfil = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Prénom"
+                    placeholder="First Name"
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
                     required
@@ -84,7 +84,7 @@ const ModifierProfil = () => {
                 <div className="col-md-4">
                   <input
                     type="text"
-                    className="form-control "
+                    className="form-control"
                     placeholder="CIN"
                     value={cin}
                     onChange={(e) => setCin(e.target.value)}
@@ -103,15 +103,13 @@ const ModifierProfil = () => {
                     required
                   />
                 </div>
-                
               </div>
               <div className="row mb-2">
-              
                 <div className="col-md-6">
                   <input
                     type="date"
                     className="form-control"
-                    placeholder="Date de Naissance"
+                    placeholder="Date of Birth"
                     value={dateNais}
                     onChange={(e) => setDateNais(e.target.value)}
                     required
@@ -121,7 +119,7 @@ const ModifierProfil = () => {
                   <input
                     type="tel"
                     className="form-control"
-                    placeholder="Téléphone"
+                    placeholder="Phone"
                     value={tel}
                     onChange={(e) => setTel(e.target.value)}
                     required
@@ -133,7 +131,7 @@ const ModifierProfil = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Adresse"
+                    placeholder="Address"
                     value={adresse}
                     onChange={(e) => setAdresse(e.target.value)}
                     required
@@ -142,13 +140,18 @@ const ModifierProfil = () => {
               </div>
               <div className="d-flex justify-content-between">
                 <button
-                  type="submit" className="btn btn-success h-50 w-100 py-2" disabled={loading}>
-                  {loading ? 'En cours...' : 'Mettre à jour'}
+                  type="submit"
+                  className="btn btn-success h-50 w-100 py-2"
+                  disabled={loading}
+                >
+                  {loading ? 'Updating...' : 'Update'}
                 </button>
                 <button
-                  type="button" className="btn btn-success h-50 w-100 py-2" onClick={() => navigate('/userAcceuil')}
+                  type="button"
+                  className="btn btn-success h-50 w-100 py-2"
+                  onClick={() => navigate('/userAcceuil')}
                 >
-                  Retour
+                  Back
                 </button>
               </div>
             </form>
@@ -156,12 +159,12 @@ const ModifierProfil = () => {
         </div>
       </div>
       <ToastContainer />
-      <div><Footer /></div>
-      
-
+      <div>
+        <Footer />
+      </div>
     </div>
-    
   );
+  
 };
 
 export default ModifierProfil;

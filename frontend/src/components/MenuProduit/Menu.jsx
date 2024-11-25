@@ -4,34 +4,33 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Menu({ user }) {
   const location = useLocation();
-  const [activeMenu, setActiveMenu] = useState('Déposer un produit');
+  const [activeMenu, setActiveMenu] = useState('Post a Product'); // Default menu item
   const navigate = useNavigate();
 
   const handleNavigation = (path, menuName) => {
     setActiveMenu(menuName);
     navigate(path);
-
   };
 
   return (
     <ul className="menu-list">
       <li
-        onClick={() => handleNavigation('/DeposerArticle', 'Déposer un produit')}
-        className={activeMenu === 'Déposer un produit' ? 'active' : ''}
+        onClick={() => handleNavigation('/DeposerArticle', 'Post a Product')}
+        className={activeMenu === 'Post a Product' ? 'active' : ''}
       >
-        Déposer un produit
+        Post a Product
       </li>
       <li
-        onClick={() => handleNavigation('/Producrved', 'Afficher liste des produits')}
-        className={activeMenu === 'Afficher liste des produits' ? 'active' : ''}
+        onClick={() => handleNavigation('/Producrved', 'View Product List')}
+        className={activeMenu === 'View Product List' ? 'active' : ''}
       >
-        Afficher liste des produits
+        View Product List
       </li>
       <li
-        onClick={() => handleNavigation('/commandes', 'Voir les commandes')}
-        className={activeMenu === 'Voir les commandes' ? 'active' : ''}
+        onClick={() => handleNavigation('/commandes', 'View Orders')}
+        className={activeMenu === 'View Orders' ? 'active' : ''}
       >
-        Voir les commandes
+        View Orders
       </li>
     </ul>
   );

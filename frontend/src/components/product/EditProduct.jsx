@@ -91,12 +91,12 @@ const EditProduct = () => {
   return (
     <div>
       <Navbar />
-      <div id="ajouter-produit">
+      <div id="edit-product">
         <h2>Edit Product</h2>
         <form onSubmit={handleSubmit}>
           {/* Form Fields */}
           <div>
-            <label>Nom:</label>
+            <label>Name:</label>
             <input
               type="text"
               value={nom}
@@ -115,7 +115,7 @@ const EditProduct = () => {
             />
           </div>
           <div>
-            <label>Prix:</label>
+            <label>Price:</label>
             <input
               type="number"
               value={prix}
@@ -125,15 +125,15 @@ const EditProduct = () => {
             />
           </div>
           <div>
-            <label>Catégorie:</label>
+            <label>Category:</label>
             <select
               value={categorie}
               onChange={(e) => setCategorie(e.target.value)}
               disabled={loading}
             >
-              <option value="materiel">Matériel</option>
-              <option value="produit pour les animaux">Produit pour les Animaux</option>
-              <option value="produit pour les plantes">Produit pour les Plantes</option>
+              <option value="materiel">Equipment</option>
+              <option value="produit pour les animaux">Animal Products</option>
+              <option value="produit pour les plantes">Plant Products</option>
             </select>
           </div>
           <div>
@@ -171,6 +171,7 @@ const EditProduct = () => {
       <Footer />
     </div>
   );
+
 };
 
 export default EditProduct;

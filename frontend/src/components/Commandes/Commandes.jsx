@@ -6,7 +6,7 @@ import Footer from '../footer/Footer';
 import './Commandes.css';
 
 const Commande = () => {
-  const [commandes, setCommandes] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Commande = () => {
       try {
         const response = await axios.get('/api/v1/auth/fetchUser', {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -43,7 +43,7 @@ const Commande = () => {
   }, [navigate]);
 
   useEffect(() => {
-    const fetchCommandes = async () => {
+    const fetchOrders = async () => {
       if (!user) return;
 
       try {
@@ -54,51 +54,49 @@ const Commande = () => {
         );
 
         if (response.data.success) {
-          setCommandes(response.data.commandes);
+          setOrders(response.data.commandes);
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des commandes', error);
+        console.error('Error fetching orders:', error);
       }
     };
 
-    fetchCommandes();
+    fetchOrders();
   }, [user]);
 
   return (
-    <div className="commande-container">
+    <div className="order-container">
       <Navbar />
-      <h2>Mes Commandes</h2>
+      <h2>My Orders</h2>
       {loading ? (
-        <p>Chargement...</p>
-      ) : commandes.length > 0 ? (
-        <table className="commande-table">
+        <p>Loading...</p>
+      ) : orders.length > 0 ? (
+        <table className="order-table">
           <thead>
             <tr>
-              <th>ID Commande</th>
-              
+              <th>Order ID</th>
               <th>Date</th>
-              <th>Vendeur</th>
+              <th>Seller</th>
               <th>Total</th>
-              <th>Image</th> {/* Nouvelle colonne pour l'image */}
+              <th>Image</th> {/* New column for product image */}
             </tr>
           </thead>
           <tbody>
-            {commandes.map((commande) => (
-              <tr key={commande._id}>
-                <td>{commande._id}</td>
-                
-                <td>{new Date(commande.dateCommande).toLocaleDateString()}</td>
-                <td>{commande.vendeurId.prenom} {commande.vendeurId.nom}</td>
-                <td>{commande.total} €</td>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{order._id}</td>
+                <td>{new Date(order.dateCommande).toLocaleDateString()}</td>
+                <td>{order.vendeurId.firstName} {order.vendeurId.lastName}</td>
+                <td>{order.total} €</td>
                 <td>
-                  {commande.produits && commande.produits.length > 0 ? (
+                  {order.products && order.products.length > 0 ? (
                     <img
-                      src={commande.produits[0].produitId.image[0]} // Première image du produit
-                      alt={commande.produits[0].produitId.nom}
-                      className="commande-product-image"
+                      src={order.products[0].productId.image[0]} // First image of the product
+                      alt={order.products[0].productId.name}
+                      className="order-product-image"
                     />
                   ) : (
-                    <span>Aucune image</span>
+                    <span>No image</span>
                   )}
                 </td>
               </tr>
@@ -106,7 +104,7 @@ const Commande = () => {
           </tbody>
         </table>
       ) : (
-        <p>Aucune commande trouvée.</p>
+        <p>No orders found.</p>
       )}
       <Footer />
     </div>

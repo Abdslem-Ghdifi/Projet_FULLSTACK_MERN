@@ -6,10 +6,10 @@ import Footer from '../footer/Footer';
 import './Cart.css';
 
 const Cart = () => {
-  const [cart, setCart] = useState(null);  // État pour le panier
-  const [userName, setUserName] = useState(null);  // État pour le nom de l'utilisateur
-  const [userId, setUserId] = useState(null);  // État pour l'ID de l'utilisateur
-  const navigate = useNavigate();  // Pour la navigation
+  const [cart, setCart] = useState(null); // State for the cart
+  const [userName, setUserName] = useState(null); // State for the user's name
+  const [userId, setUserId] = useState(null); // State for the user's ID
+  const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,10 +26,10 @@ const Cart = () => {
 
         if (response.data.success) {
           setUserId(response.data.user._id);
-          setUserName(response.data.user.prenom);
+          setUserName(response.data.user.firstName);
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des données utilisateur :', error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -52,10 +52,10 @@ const Cart = () => {
         if (response.data.success) {
           setCart(response.data.cart);
         } else {
-          console.error('Erreur lors de la récupération du panier');
+          console.error('Error fetching the cart');
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération du panier', error);
+        console.error('Error fetching the cart', error);
       }
     };
 
@@ -72,68 +72,68 @@ const Cart = () => {
       if (response.data.success) {
         setCart(response.data.cart);
       } else {
-        console.error('Erreur lors de la suppression du produit:', response.data.message);
+        console.error('Error removing product:', response.data.message);
       }
     } catch (error) {
-      console.error('Erreur lors de la suppression du produit:', error);
+      console.error('Error removing product:', error);
     }
   };
 
   const handleConfirmOrder = async () => {
-    if (!cart || cart.produits.length === 0) {
-      alert('Votre panier est vide. Vous ne pouvez pas passer commande.');
+    if (!cart || cart.products.length === 0) {
+      alert('Your cart is empty. You cannot place an order.');
       return;
     }
 
     try {
-      const commande = {
-        acheteurId: userId,
-        produits: cart.produits.map((item) => ({
-          produit: item.produit._id,
-          quantite: item.quantity,
-          vendeur: item.produit.vendeur,
-          prix: item.produit.prix,
+      const order = {
+        buyerId: userId,
+        products: cart.products.map((item) => ({
+          product: item.product._id,
+          quantity: item.quantity,
+          seller: item.product.seller,
+          price: item.product.price,
         })),
       };
 
-      const commandesParVendeur = {};
+      const ordersBySeller = {};
 
-      commande.produits.forEach((item) => {
-        const vendeurId = item.vendeur;
-        if (!vendeurId) {
-          console.error('Produit sans vendeur:', item.produit);
+      order.products.forEach((item) => {
+        const sellerId = item.seller;
+        if (!sellerId) {
+          console.error('Product without seller:', item.product);
           return;
         }
 
-        if (!commandesParVendeur[vendeurId]) {
-          commandesParVendeur[vendeurId] = {
-            vendeurId: vendeurId,
-            produit: [],
+        if (!ordersBySeller[sellerId]) {
+          ordersBySeller[sellerId] = {
+            sellerId: sellerId,
+            product: [],
             total: 0,
           };
         }
 
-        commandesParVendeur[vendeurId].produit.push({
-          produitId: item.produit,
-          quantite: item.quantite,
+        ordersBySeller[sellerId].product.push({
+          productId: item.product,
+          quantity: item.quantity,
         });
 
-        commandesParVendeur[vendeurId].total += item.prix * item.quantite;
+        ordersBySeller[sellerId].total += item.price * item.quantity;
       });
 
-      const command = Object.values(commandesParVendeur);
+      const commands = Object.values(ordersBySeller);
 
       const response = await axios.post(
-        'http://localhost:8084/api/v1/auth/createCommande',
+        'http://localhost:8084/api/v1/auth/createOrder',
         {
-          acheteurId: userId,
-          command: command,  // Renommé pour correspondre au nom attendu par le backend
+          buyerId: userId,
+          commands: commands, // Renamed to match the backend's expected name
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       if (response.data.success) {
-        alert('Commande confirmée avec succès !');
+        alert('Order confirmed successfully!');
         await axios.post(
           'http://localhost:8084/api/v1/auth/emptyCart',
           { userId },
@@ -141,45 +141,43 @@ const Cart = () => {
         );
 
         setCart(null);
-        console.log(" localstorage : " ,command);
-        localStorage.setItem('invoiceData', JSON.stringify(command));
-
-        navigate('/facture');
+        localStorage.setItem('invoiceData', JSON.stringify(commands));
+        navigate('/invoice');
       } else {
-        console.error('Erreur API:', response.data.message);
-        alert('Erreur lors de la confirmation de la commande: ' + response.data.message);
+        console.error('API Error:', response.data.message);
+        alert('Error confirming the order: ' + response.data.message);
       }
     } catch (error) {
-      console.error('Erreur lors de la confirmation de la commande:', error);
+      console.error('Error confirming the order:', error);
     }
   };
 
   return (
     <div className="cart-container">
       <Navbar />
-      <h2>Votre Panier</h2>
+      <h2>Your Cart</h2>
       {cart ? (
         <div className="cart-content">
           <ul className="cart-items">
-            {cart.produits.map((item) => (
-              <li key={item.produit._id} className="cart-item">
+            {cart.products.map((item) => (
+              <li key={item.product._id} className="cart-item">
                 <div className="cart-item-details">
-                  <img src={item.produit.image} alt={item.produit.nom} className="product-image" />
+                  <img src={item.product.image} alt={item.product.name} className="product-image" />
                   <div className="item-info">
-                    <p className="product-name">{item.produit.nom}</p>
-                    <p className="product-price">{item.produit.prix} €</p>
-                    <p className="product-quantity">Quantité: {item.quantity}</p>
+                    <p className="product-name">{item.product.name}</p>
+                    <p className="product-price">{item.product.price} €</p>
+                    <p className="product-quantity">Quantity: {item.quantity}</p>
                   </div>
-                  <button onClick={() => removeFromCart(item.produit._id)} className="remove-btn">Supprimer</button>
+                  <button onClick={() => removeFromCart(item.product._id)} className="remove-btn">Remove</button>
                 </div>
               </li>
             ))}
           </ul>
           <h3 className="total-price">Total: {cart.total} €</h3>
-          <button onClick={handleConfirmOrder} className="confirm-order-btn">Confirmer la commande</button>
+          <button onClick={handleConfirmOrder} className="confirm-order-btn">Confirm Order</button>
         </div>
       ) : (
-        <p className="empty-cart">Votre panier est vide.</p>
+        <p className="empty-cart">Your cart is empty.</p>
       )}
       <Footer />
     </div>

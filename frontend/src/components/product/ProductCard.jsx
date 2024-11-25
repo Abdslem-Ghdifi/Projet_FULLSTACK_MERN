@@ -33,8 +33,7 @@ const ProductCard = ({ produit, addToCart }) => {
         <button 
           className="btn" 
           onClick={() => addToCart(produit)}>
-          Add to Panier
-        </button>
+Add to Cart</button>
       </div>
     </div>
   );
@@ -42,13 +41,3 @@ const ProductCard = ({ produit, addToCart }) => {
 
 export default ProductCard;
 
-        /*<button 
-          className="btn btn-secondary" 
-          onClick={() => setModalOpen(true)}>
-          Update
-        </button>
-        <button 
-          className="btn btn-danger" 
-          onClick={handleDelete}>
-          Delete
-        </button>*/

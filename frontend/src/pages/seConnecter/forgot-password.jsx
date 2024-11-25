@@ -43,10 +43,10 @@ const ForgotPassword = () => {
   return (
     <div id='forgot-password'>
       <form onSubmit={handleSubmit}>
-        <h2>Réinitialiser le mot de passe</h2>
+        <h2>Reset Password</h2>
         <input
           type="email"
-          placeholder="Entrez votre email"
+          placeholder="Enter your Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

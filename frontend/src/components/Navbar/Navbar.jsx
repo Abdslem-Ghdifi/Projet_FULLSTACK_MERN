@@ -5,19 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ user, onSearch }) => {
   const navigate = useNavigate();
-  const [menu, setMenu] = useState('Accueil');
+  const [menu, setMenu] = useState('Home');
   const [showSearch, setShowSearch] = useState(false); // State to toggle search input visibility
   const [searchTerm, setSearchTerm] = useState(''); // State to store search term
-
 
   const handleNavigation = (route, menuName) => {
     setMenu(menuName);
     navigate(route);
   };
+
   // Function to handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value); // Update search term
-    onSearch(e.target.value); // Pass the search term to parent (UserAcceuil)
+    onSearch(e.target.value); // Pass the search term to parent (UserHome)
   };
 
   // Function to toggle the search input visibility
@@ -32,14 +32,14 @@ const Navbar = ({ user, onSearch }) => {
   const handleSelectChange = (event) => {
     const selectedOption = event.target.value;
     switch (selectedOption) {
-      case 'Déposer un produit':
-        handleNavigation('/DeposerArticle', 'Déposer un produit');
+      case 'Post a product':
+        handleNavigation('/DeposerArticle', 'Post a product');
         break;
-      case 'Afficher liste des produits':
-        handleNavigation('/Producrved', 'Afficher liste des produits');
+      case 'Show product list':
+        handleNavigation('/Producrved', 'Show product list');
         break;
-      case 'Voir les commandes':
-        handleNavigation('/commandes', 'Voir les commandes');
+      case 'View orders':
+        handleNavigation('/commandes', 'View orders');
         break;
       default:
         break;
@@ -53,34 +53,34 @@ const Navbar = ({ user, onSearch }) => {
       {/* Menu */}
       <ul className="navbar-menu">
         <li
-          onClick={() => handleNavigation('/userAcceuil', 'Accueil')}
-          className={menu === 'Accueil' ? 'active' : ''}
+          onClick={() => handleNavigation('/userAcceuil', 'Home')}
+          className={menu === 'Home' ? 'active' : ''}
         >
-          Accueil
+          Home
         </li>
         <li
-          onClick={() => handleNavigation('/commandes', 'Commande')}
-          className={menu === 'Commande' ? 'active' : ''}
+          onClick={() => handleNavigation('/commandes', 'Orders')}
+          className={menu === 'Orders' ? 'active' : ''}
         >
-          Commande
+          Orders
         </li>
         <li
-          onClick={() => handleNavigation('/categorie', 'Catégorie')}
-          className={menu === 'Catégorie' ? 'active' : ''}
+          onClick={() => handleNavigation('/categorie', 'Category')}
+          className={menu === 'Category' ? 'active' : ''}
         >
-          Catégorie
+          Category
         </li>
         <li
-          onClick={() => handleNavigation('/contact', 'Contact admin')}
-          className={menu === 'Contact admin' ? 'active' : ''}
+          onClick={() => handleNavigation('/contact', 'Contact Admin')}
+          className={menu === 'Contact Admin' ? 'active' : ''}
         >
-          Contact admin
+          Contact Admin
         </li>
         <li
-          onClick={() => handleNavigation('/profil', 'Profil')}
-          className={menu === 'Profil' ? 'active' : ''}
+          onClick={() => handleNavigation('/profil', 'Profile')}
+          className={menu === 'Profile' ? 'active' : ''}
         >
-          Profil
+          Profile
         </li>
       </ul>
 
@@ -88,11 +88,11 @@ const Navbar = ({ user, onSearch }) => {
       <div className="navbar-right">
         <select className="dropdown-select" onChange={handleSelectChange}>
           <option value="">Select an option</option>
-          <option value="Déposer un produit">Déposer un produit</option>
-          <option value="Afficher liste des produits">Afficher liste des produits</option>
-          <option value="Voir les commandes">Voir les commandes</option>
+          <option value="Post a product">Post a product</option>
+          <option value="Show product list">Show product list</option>
+          <option value="View orders">View orders</option>
         </select>
-        <img src={images.iconSearch} className="icon" alt="Search Icon"  onClick={toggleSearch} />
+        <img src={images.iconSearch} className="icon" alt="Search Icon" onClick={toggleSearch} />
         {showSearch && (
           <input
             type="text"
@@ -106,8 +106,7 @@ const Navbar = ({ user, onSearch }) => {
           <img src={images.iconBasket} className="icon" alt="Basket Icon" />
           <div className="dot"></div>
         </div>
-      
-        <button className="btn">Déconnecter</button>
+        <button className="btn">Logout</button>
       </div>
     </div>
   );

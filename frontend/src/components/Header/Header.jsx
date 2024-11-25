@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
 
-  const handleConnectClick = () => {
+  const handleLoginClick = () => {
     navigate("/login");
   };
 
-  const handleSignUpClick = () => {
+  const handleRegisterClick = () => {
     navigate("/register");
   };
 
@@ -21,18 +21,18 @@ const Header = () => {
           <h1 className="display-4 text-light fw-bold">AGRAS Store</h1>
           <p className="text-light lead">
             Agras is a team of young IT students with a shared passion for agriculture and technology. 
-            Our project is an online marketplace dedicated to offering a wide range of agricultural products and supplies. 
+            Our project is an online marketplace dedicated to providing a wide range of agricultural products and supplies. 
             From seeds and tools to animal care products, we aim to make agriculture more accessible and efficient for everyone.
           </p>
         </div>
 
         {/* Button Section */}
         <div className="header-buttons mt-4">
-          <button className="btn btn-outline-light mx-3" onClick={handleConnectClick}>
-            Se connecter
+          <button className="btn btn-outline-light mx-3" onClick={handleLoginClick}>
+            Login
           </button>
-          <button className="btn btn-outline-light mx-3" onClick={handleSignUpClick}>
-            S'inscrire
+          <button className="btn btn-outline-light mx-3" onClick={handleRegisterClick}>
+            Sign Up
           </button>
         </div>
       </div>

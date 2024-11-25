@@ -15,32 +15,32 @@ const ProfilUser = () => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token'); 
       if (!token) {
-        navigate('/login'); // Redirige si aucun token n'est disponible
+        navigate('/login'); // Redirect if no token is available
         return;
       }
       
       try {
         const response = await axios.get('/api/v1/auth/fetchUser', {
           headers: {
-            'Authorization': `Bearer ${token}`, // Inclure le token dans l'en-tête Authorization
+            'Authorization': `Bearer ${token}`, // Include token in Authorization header
           },
         });
   
         if (response.data.success) {
-          setUser(response.data.user); // Mettre à jour les informations utilisateur
+          setUser(response.data.user); // Update user information
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        // Gérer l'erreur (par exemple, afficher une notification)
+        // Handle the error (e.g., show a notification)
       } finally {
-        setLoading(false); // Arrêter le chargement, même en cas d'erreur
+        setLoading(false); // Stop loading, even on error
       }
     };
   
     fetchUserData();
   }, [navigate]);
 
-  // Charger les données utilisateur à partir du stockage local si elles ne sont pas déjà disponibles
+  // Load user data from local storage if not already available
   useEffect(() => {
     if (!user && !loading) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -51,16 +51,16 @@ const ProfilUser = () => {
   return (
     <div className="profil-container">
       <Navbar />
-      <h2>Mon Profil</h2>
+      <h2>My Profile</h2>
 
       {loading ? (
-        <p>Chargement...</p>
+        <p>Loading...</p>
       ) : user ? (
         <div className="profil-content">
           <div className="profil-image-container">
             <img
               src={user.imageProfil}
-              alt="Profil utilisateur"
+              alt="User Profile"
               className="profil-image"
             />
           </div>
@@ -68,11 +68,11 @@ const ProfilUser = () => {
           <table className="profil-info-table">
             <tbody>
               <tr>
-                <td><strong>Nom:</strong></td>
+                <td><strong>Last Name:</strong></td>
                 <td>{user.nom}</td>
               </tr>
               <tr>
-                <td><strong>Prénom:</strong></td>
+                <td><strong>First Name:</strong></td>
                 <td>{user.prenom}</td>
               </tr>
               <tr>
@@ -84,15 +84,15 @@ const ProfilUser = () => {
                 <td>{user.cin}</td>
               </tr>
               <tr>
-                <td><strong>Date de Naissance:</strong></td>
+                <td><strong>Date of Birth:</strong></td>
                 <td>{user.dateNais}</td>
               </tr>
               <tr>
-                <td><strong>Téléphone:</strong></td>
+                <td><strong>Phone:</strong></td>
                 <td>{user.tel}</td>
               </tr>
               <tr>
-                <td><strong>Adresse:</strong></td>
+                <td><strong>Address:</strong></td>
                 <td>{user.adresse}</td>
               </tr>
             </tbody>
@@ -102,11 +102,11 @@ const ProfilUser = () => {
             className="edit-button"
             onClick={() => navigate('/ModifierProfil', { state: { user } })}
           >
-            Modifier les informations
+            Edit Information
           </button>
         </div>
       ) : (
-        <p>Aucune information utilisateur disponible</p>
+        <p>No user information available</p>
       )}
       <Footer />
     </div>
